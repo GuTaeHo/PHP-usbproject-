@@ -1,0 +1,40 @@
+form {
+    max-width : 550px;
+    margin: 8rem auto;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+#top-contents {
+    padding: 2rem;
+}
+
+.login {
+    float: right;
+}
+
+/* 모바일 기기 css 지정*/
+@media screen and (max-width: 768px) {
+    body {
+        background: #ffffff;
+    }
+
+    form {
+        max-width : 550px;
+        margin: 4rem auto;
+        padding: 1rem;
+        background: #ffffff;
+        border-radius: 0px;
+        box-shadow: none;
+    }
+
+    .login {
+        margin-top: 1rem;
+    }
+
+    .cancel {
+        margin-top: 1rem;
+    }
+}

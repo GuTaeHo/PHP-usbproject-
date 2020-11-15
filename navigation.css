@@ -1,0 +1,105 @@
+body {
+    font-family: 'Raleway', sans-serif;
+}
+#collapse {
+
+}
+
+#header {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    right: 0;
+    /* 맨 앞으로*/
+    z-index: 1000;
+    transition: top 0.2s ease-in-out;
+}
+.navbar {
+    opacity: 0.7;
+    transition: 500ms;
+}
+
+.dropdown-menu {
+    transition: 600ms;
+}
+
+.navbar-nav {
+    width: 100%;
+    font-size: 24px;
+    text-align: center;
+}
+
+.nav-link {
+    color: #f1f1f1 !important;
+}
+
+.nav-item {
+    margin: 0px auto;
+    width: 12%;
+    border-radius: 10px;
+    transition: 300ms;
+}
+
+.nav-item:hover
+{
+    background: #a6a6a6;
+}
+
+.navbar-brand {
+    font-size: 30px;
+    margin-right: 5%;
+}
+
+.dropdown-menu {
+    width: 100%;
+    border: none;
+    box-shadow: 5px 5px 15px #b3b3b3;
+    font-size: 20px;
+    top: 80px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.dropdown-item {
+    background: #ffffff;
+    transition: 300ms;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.dropdown-item:hover {
+    background: #cccccc;
+}
+
+.navbar-toggler {
+    margin-top: 0px !important;
+}
+
+/* 스마트폰 css 지정*/
+@media screen and (max-width: 768px) {
+   .navbar-nav {
+       text-align: left;
+   }
+
+    .nav-item {
+        margin: 0px;
+        width: 16%;
+        border-radius: 10px;
+        transition: 300ms;
+    }
+
+    .nav-item:hover
+    {
+        background: #343A40;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        border: none;
+        box-shadow: none;
+        font-size: 20px;
+        top: 70px;
+        border-radius: 5px;
+    }
+}
+

@@ -1,0 +1,75 @@
+body {
+    height: 100%;
+}
+
+img {
+    max-width: 100%;
+    border-radius: 5px;
+
+}
+
+p {
+    border-radius: 5px;
+    background: rgba(122, 122, 122, 0.1);
+    margin: 10px 10px 0px 10px;
+}
+
+.container {
+    margin-top: 2rem;
+    padding: 5%;
+}
+
+.bg-text {
+    text-align: center;
+}
+
+h1 {
+    box-shadow: 5px 5px 10px #D8D8D8;
+    border-radius: 10px;
+    padding: 10px;
+    background: #A4A4A4;
+    color: white;
+    text-shadow: 1px 1px 3px #424242;
+}
+
+.first-container {
+}
+
+.col-12 {
+    padding: 10px;
+}
+
+.first-lineBox {
+    max-height: 300px;
+    padding: 15px;
+    background: #ffffff;
+    border: 2px solid #D8D8D8;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: 300ms ease-out;  /* 0.5초간 진행*/
+}
+
+.first-lineBox:hover {
+    overflow: hidden;
+    cursor : pointer;
+    border-radius: 15px;
+    position: relative;     /* z-index 속성을 사용하기 위해서 relative로 설정*/
+    z-index: 2;
+    transform: scale(1.2, 1.2);     /* 가로 세로 1.2배*/
+    background: #FFFFFF;
+    box-shadow: 3px 3px 10px #BDBDBD;
+    /*animation: boxHover 300ms ease forwards alternate;*/
+}
+
+.divided-first-box2 {
+    margin-top: 20px;
+}
+
+/* 스마트폰 css 지정*/
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 4rem;
+        padding: 5%;
+    }
+}
+

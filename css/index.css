@@ -1,0 +1,89 @@
+.content-title {
+    font-family: 'Raleway', sans-serif;
+    font-weight: lighter;
+    color: #4d4d4d;
+    font-size: 6rem;
+    padding: 2rem 0rem 1rem 0rem;
+    text-align: center;
+    margin: 2rem auto 0rem auto;
+    background: #ffffff;
+    text-shadow: 5px 5px 20px #999999;
+    box-shadow: 5px 5px 30px #bfbfbf;
+    border-radius: 30px;
+    width: 70%;
+}
+
+.content {
+    max-width: 70%;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+.alert {
+    margin: 0px;
+}
+
+.carousel-inner {
+    overflow: hidden;
+    max-width: 70%;
+    margin : auto;
+
+}
+
+.carousel-caption {
+    color:#424242;
+    background-color: #f1f1f1;
+    box-shadow: black;
+    border-radius: 10px;
+    padding : 10px;
+    opacity: 0.8;       /* 불투명도 */
+}
+
+.carousel-control-prev {    /* 캐러셀 이전 버튼*/
+    background: #e6e6e6;
+    transition: 300ms;
+}
+
+.carousel-control-prev:hover {
+    background: #cccccc;
+}
+
+.carousel-control-next {    /* 캐러셀 다음 버튼*/
+    background: #e6e6e6;
+    transition: 300ms;
+}
+
+.carousel-control-next:hover {
+    background: #cccccc;
+}
+
+.carousel-indicators li {
+    background-color: #A9A9F5
+}
+
+/* 모바일 기기 css 지정*/
+@media screen and (max-width: 768px) {
+    .content {
+        max-width: 100%;
+        margin: auto;
+        border-radius: 0px;
+        box-shadow: none;
+        padding: 0px;
+    }
+
+    .content-title {
+        display: none;
+    }
+
+    .bd-example {
+        max-width: 100%;
+        box-shadow: 5px 5px 5px #e6e6e6;
+    }
+}
+
+
+
+

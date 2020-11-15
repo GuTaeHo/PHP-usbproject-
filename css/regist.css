@@ -1,0 +1,64 @@
+form {
+    max-width : 550px;
+    margin: 8rem auto;
+    padding: 1rem;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+#top-contents {
+    padding: 2rem;
+}
+
+button:nth-child(1) {
+    /* 우측 정렬 */
+    float: right;
+    margin-top: 2rem;
+    height : 40px;
+}
+
+button:nth-child(2) {
+    margin-top: 2rem;
+    height : 40px
+}
+
+/* 중복 검사 버튼 */
+.form-group > .idCheck {
+    background: #E4E4E4;
+    margin-top: 10px;
+    border-radius: 5px;
+    border: none;
+    float: right;
+    transition: 200ms;
+    width: 5rem;
+    height: 2rem;
+    text-align: center;
+}
+
+.form-group > .idCheck:hover {
+    background: #BDBDBD;
+}
+
+#idCheck {
+    margin-top: 10px;
+    background: none;
+    border: none;
+    color : #ff6666;
+    text-align: center;
+}
+
+/* 모바일 기기 css 지정*/
+@media screen and (max-width: 768px) {
+    body {
+        background: #ffffff;
+    }
+    form {
+        max-width : 550px;
+        margin: 4rem auto;
+        padding: 1rem;
+        background: #ffffff;
+        border-radius: 30px;
+        box-shadow: none;
+    }
+}

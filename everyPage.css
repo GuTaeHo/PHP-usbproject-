@@ -1,0 +1,14 @@
+/* 모든 문서에 적용되는 css 파일 입니다 */
+body {
+    /* 헤더바 겹침 방지 */
+    margin-top: 74px;
+    /* 배경색 - 밝은 회색 */
+    background: #f2f2f2;
+}
+
+/* 모바일 기기 css 지정*/
+@media screen and (max-width: 768px) {
+    body {
+        background: #ffffff;
+    }
+}

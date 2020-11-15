@@ -1,0 +1,58 @@
+.container {
+    margin-top: 12rem;
+}
+
+form {
+    margin: 6rem auto 6rem;
+    padding: 3rem 2rem 5rem 2rem;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+#tbody tr {
+    background: white;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+/* 게시판 레코드 호버시 배경 변경*/
+#tbody tr:hover {
+
+    background: #E4E4E4;
+}
+
+/* 스마트폰 css 지정*/
+@media screen and (max-width: 768px) {
+    body {
+        background: #ffffff;
+    }
+    .container {
+        margin-top: 6rem;
+    }
+
+    .content {
+        max-width: 100%;
+        margin: auto;
+        border-radius: 0px;
+        box-shadow: none;
+        padding: 0px;
+    }
+
+    form {
+        margin: 0px;
+        padding: 3rem 2rem 5rem 2rem;
+        background: #ffffff;
+        border-radius: 0px;
+        box-shadow: none;
+    }
+
+    .content-title {
+        display: none;
+    }
+
+    .bd-example {
+        max-width: 100%;
+        box-shadow: 5px 5px 5px #e6e6e6;
+    }
+}
