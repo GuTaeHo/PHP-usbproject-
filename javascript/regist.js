@@ -248,7 +248,7 @@ function registCheckInput() {
         error: function () {
             console.log('서버와 연결에 실패했습니다...');
         },
-        // ajax 연결에 성공했다면, getId.php의 json으로 변환된 변수를 받아옴
+        // ajax 연결에 성공했다면, putRegist.php의 json으로 변환된 변수를 받아옴
         success: function (response) {
             console.log(response);
 
@@ -256,7 +256,7 @@ function registCheckInput() {
                 alert(response['msg']);
             } else {
                 alert('회원가입 성공! 로그인 페이지로 이동합니다.');
-                location.href = '../index.php'
+                location.href = '../index.php?target=login'
             }
         },
         complete: function () {

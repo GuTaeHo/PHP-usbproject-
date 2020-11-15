@@ -32,13 +32,17 @@ session_start();
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#"
                        role="button" aria-haspopup="true" aria-expanded="false" >Member</a>
                     <div class="dropdown-menu">
+
                         <!-- 비로그인 상태일 경우-->
                         <?php if (!$_SESSION["userId"]) {?>
                         <a class="dropdown-item" href="./?target=regist">회원가입</a>
                         <a class="dropdown-item" href="./?target=login">로그인</a>
+
                         <!-- 로그인 상태일 경우-->
                         <?php } else {?>
-                        <a class="dropdown-item" href="./?target=member">회원 정보 수정</a>
+                            <!-- 회원 정보 수정이 눌리면 getMember.php로 이동한 뒤, session을 통해 userId를 가져온 뒤,
+                                    json형식으로 레코드 반환후, memberModify.php로 이동-->
+                        <a class="dropdown-item" href="./?target=memberModify">회원 정보 수정</a>
                         <a class="dropdown-item" href="./?target=logout">로그아웃</a>
                         <?php } ?>
                         <div class="dropdown-divider"></div>

@@ -23,7 +23,7 @@ $board = $db->get('board b', null, 'm.nickname, b.b_code, b.title, b.date, b.vie
 // SELECT m.nickname, b.b_code, b.title, b.date, b.viewcount FROM board b LEFT JOIN member m ON m.m_code=b.m_code;
 
 
-// sql 구문을 result 배열에 저장
+// 반환된 레코드를 result 배열에 저장
 $result['result_data'] = $board;
 $result['error'] = false;
 
