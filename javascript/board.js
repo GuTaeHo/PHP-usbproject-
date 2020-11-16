@@ -32,8 +32,8 @@ $( document ).ready(function() {
                     tag += "<td>" + val.b_code + "</td>";
                     tag += "<td>" + val.title + "</td>";
                     tag += "<td>" + val.nickname + "</td>";
-                    tag += "<td>" + val.date + "</td>";
-                    tag += "<td>" + val.viewcount + "</td>";
+                    tag += "<td class='writeDate'>" + val.date + "</td>";
+                    tag += "<td class='viewCount'>" + val.viewcount + "</td>";
                     tag += "</tr>"
                 });
             }

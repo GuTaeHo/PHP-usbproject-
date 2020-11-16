@@ -2,7 +2,6 @@
 // login.php에서 정상적으로 로그인을 했다면 세션에 값이 들어있음
 session_start();
 ?>
-
 <div id="header" onscroll="">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
         <a class="navbar-brand" href="?target=index">HOME</a>

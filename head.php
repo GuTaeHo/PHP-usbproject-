@@ -34,3 +34,5 @@
 <script src="https://unpkg.com/@popperjs/core@2/dist/umd/popper.js"></script>
 
 <title>USB_Project</title>
+
+<?php session_start(); ?>

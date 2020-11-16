@@ -13,6 +13,33 @@
     width: 70%;
 }
 
+/* 현재 접속자 id style 지정 */
+.current-id {
+    position: fixed;
+    margin: 0;
+    top: 144px;
+    left: 2rem;
+    background: #ffffff;
+    font-size: 22px;
+    text-align: center;
+    padding: 10px 15px 10px 15px;
+    color: #4d4d4d;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px #A4A4A4;
+    transition: 300ms;
+    cursor: pointer;
+}
+
+.current-id:hover {
+    transform: scale(1.3, 1.3);
+    background: #343A40;
+    color: #f1f1f1;
+}
+
+.current-id p {
+    padding-bottom: 20px;
+}
+
 .content {
     max-width: 70%;
     margin: 4rem auto;
@@ -64,6 +91,13 @@
     background-color: #A9A9F5
 }
 
+/* */
+@media screen and (max-width: 1280px) {
+    .current-id {
+        display: none;
+    }
+}
+
 /* 모바일 기기 css 지정*/
 @media screen and (max-width: 768px) {
     .content {
@@ -72,6 +106,10 @@
         border-radius: 0px;
         box-shadow: none;
         padding: 0px;
+    }
+
+    .current-id {
+        display: none;
     }
 
     .content-title {

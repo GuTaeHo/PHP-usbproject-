@@ -1,8 +1,14 @@
 body {
     font-family: 'Raleway', sans-serif;
 }
-#collapse {
 
+/* 사용자 id 반갑습니다 부분 */
+.current-id p {
+    font-weight: bold;
+    text-align: center;
+    font-size: 28px;
+    padding-bottom: 10px;
+    border-bottom: 3px dashed #aaaaaa;
 }
 
 #header {
@@ -42,7 +48,7 @@ body {
 
 .nav-item:hover
 {
-    background: #a6a6a6;
+    background: #b6b6b6;
 }
 
 .navbar-brand {

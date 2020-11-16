@@ -30,7 +30,7 @@ $(document).ready(function() {
                 // response배열의 0번 인덱스에 id(key)에 값(value)을 반환
                 // console.log(response[0].id);
                 div += "<div class='form-group'><label>아이디</label>" +
-                    "<input type='text' class='form-control' value='" + response[0].id + "' readonly/></div>"
+                    "<input type='text' name='id' class='form-control' value='" + response[0].id + "' readonly/></div>"
                 div += "<div class='form-group'><label>비밀번호</label>" +
                     "<input type='password' name='passwd' class='form-control passwd' placeholder='비밀번호 변경' onkeydown='enter()'></div>"
                 div += "<div class='form-group'><label>비밀번호 확인</label>" +
@@ -75,7 +75,7 @@ function emailCheck(email) {
     // 이메일 형식에 관한 정규식
     var regEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
 
-    // tset() 메소드는 대응되는 문자열이 있는지 검사하는 정규식 관련 메소드임, true 나 false를 반환함
+    // test() 메소드는 대응되는 문자열이 있는지 검사하는 정규식 관련 메소드임, true 나 false를 반환함
     if(regEmail.test(email)) {
         return true;
     } else {
@@ -106,13 +106,6 @@ function registCheckInput() {
     let password_check = document.memberModify.passwd_check;
     let name = document.memberModify.name;
     let nickname = document.memberModify.nickname;
-
-    console.log(email.value);
-    console.log(password.value);
-    console.log(password_check.value);
-    console.log(name.value);
-    console.log(nickname.value);
-
 
     // 다른 많은 언어와 마찬가지로 자바스크립트에서도 정규식을 지원
     // - 정규식에 관련한 예제 (https://developer.mozilla.org/ko/docs/Web/JavaScript/Guide/%EC%A0%95%EA%B7%9C%EC%8B%9D)
@@ -191,14 +184,15 @@ function registCheckInput() {
         },
         // ajax 연결에 성공했다면, putMemberModify.php의 json으로 변환된 변수를 받아옴
         success: function (response) {
-            console.log(response);
+            // console.log(response);
 
             if (response['error']) {
                 alert(response['msg']);
             } else {
-                console.log(response['msg']);
-                // alert('정보 수정 성공! 메인 페이지로 이동합니다.');
-                // location.href = '../index.php'
+                // console.log(response['count']);
+                // console.log(response['msg']);
+                alert('정보 수정 성공! 메인 페이지로 이동합니다.');
+                location.href = '../index.php'
             }
         },
         complete: function () {

@@ -19,8 +19,11 @@
     </button>
 </div>
 <?php
-    }
+    } else {
 ?>
+<!-- 사용자 id 표시 O-->
+<div class="current-id" onclick="idClick()"><p>안녕하세요</p><?=$_SESSION['userId']?>님</div>
+<?php } ?>
 
 <h1 class="content-title">Main Page</h1>
 
