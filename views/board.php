@@ -1,5 +1,5 @@
 <div class="container">
-<form id="boardForm" name="boardForm" method="post" action="boardWrite.php">
+<form id="boardForm" name="boardForm" method="post" action="../index.php?target=boardWrite">
     <div class="col-12 col-md-12 col-xl-12">
     <table class="table table-hover">
         <thead>

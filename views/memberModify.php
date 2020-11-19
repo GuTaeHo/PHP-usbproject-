@@ -6,7 +6,7 @@
                 <!-- 비동기적으로 태그 생성-->
             </div>
             <div class="form-group submit">
-                <button type="button" id="next" class="col-md-5 btn btn-dark login" onclick="registCheckInput()">가입</button>
+                <button type="button" id="next" class="col-md-5 btn btn-dark login" onclick="registCheckInput()">수정</button>
                 <button type="button" class="col-md-5 btn btn-light cancel" onclick="cancel()">취소</button>
             </div>
         </div>

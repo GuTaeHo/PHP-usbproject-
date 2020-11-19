@@ -13,7 +13,7 @@
 
 <!-- 콘텐츠 최상위 경고창 -->
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-    회원이 아니신가요? <a href="./controller/?target=regist" class="alert-link">회원 가입</a>
+    회원이 아니신가요? <a href="./?target=regist" class="alert-link">회원 가입</a>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>

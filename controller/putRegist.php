@@ -1,6 +1,12 @@
 <?php
 require_once "../app.php";
 
+/**
+ * 본 파일은 regist.php의 가입버튼이 눌리면 호출되며,
+ * 넘겨받은 값을 db에 INSERT 시키고, 에러 결과를
+ * json형식으로 인코딩하여 반환하는 기능을 함
+ */
+
 // 강제적으로 캐시 무효화(서버와 클라이언트간의 동적인 html 생성을 위해)
 header('Cache-Control: no-cache, must-revalidate');
 // 날짜와 시간을 포맷 형식에 따라 포맷
@@ -17,8 +23,6 @@ $nickname = $_POST["nickname"];
 $name = $_POST['name'];
 $email = $_POST["email"];
 
-// 날짜 형식 ex)  2020-11-14 19:51:49
-
 // 객체를 하나 생성한 뒤, post방식으로 받은 데이터를 객체의 키, 값으로 저장
 $data = Array (
     "id" => $id,
@@ -27,6 +31,8 @@ $data = Array (
     "name" => $name,
     "email" => $email,
     // sql구문 select now() 와 같음
+    // 현재 날짜 및 시간을 반환함
+    // 날짜 형식 ex)  2020-11-14 19:51:49
     "date" => $db->now()
 );
 

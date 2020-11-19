@@ -7,6 +7,7 @@ function idClick() {
     let currentID = document.getElementsByClassName('current-id');
 
     if (toggle === 0) {
+        // 스타일을 적용하기 위해서 적용할 태그의 자식 노드들 까지 반복해서 적용해 주어야 정상 동작한다.
         for (let i = 0; i < currentID.length; i += 1) {
             currentID[i].style.opacity = '0.25';
         }

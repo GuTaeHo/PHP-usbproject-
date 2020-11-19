@@ -1,6 +1,12 @@
 <?php
 require_once "../app.php";
 
+/**
+ * 본 파일은 login.php 의 로그인 버튼이 눌리면 호출 되며,
+ * 넘겨받은 id가 db와 일치하면 세션에 db의 관련 컬럼을 저장하고,
+ * 메인 페이지로 돌려보내는 기능을 함
+ */
+
 // post형식으로 전송된 id값 저장
 $idValue = $_POST["id"];
 $passWordValue = $_POST["passwd"];
@@ -15,6 +21,7 @@ $member = $db->getOne("member");
     if (($idValue == $member['id']) && ($passWordValue == $member['password'])) {
         // 세션 시작
         session_start();
+        $_SESSION["userCode"] = $member['m_code'];
         $_SESSION["userId"] = $member['id'];
         $_SESSION["userNickname"] = $member['nickname'];
         $_SESSION["userEmail"] = $member['email'];
@@ -33,8 +40,6 @@ $member = $db->getOne("member");
                 location.href = '../index.php?target=login';
             </script>";
     }
-
-
 ?>
 
 

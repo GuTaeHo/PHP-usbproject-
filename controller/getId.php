@@ -1,6 +1,12 @@
 <?php
 require_once "../app.php";
 
+/**
+ * 본 파일은 regist.php가 로드(onload)되고, 키보드가 입력되면 실행되는 파일로,
+ * 아이디란에 입력받은 값을 가져와 db와 일치하면, 레코드 수를
+ * json형식으로 인코딩하여 반환하는 기능을 가지고 있음.
+ */
+
 // 강제적으로 캐시 무효화(서버와 클라이언트간의 동적인 html 생성을 위해)
 header('Cache-Control: no-cache, must-revalidate');
 // 날짜와 시간을 포맷 형식에 따라 포맷

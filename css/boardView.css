@@ -1,0 +1,112 @@
+body {
+    padding: 5rem;
+}
+
+h1 {
+    text-align: center;
+}
+
+.container {
+    max-width: 768px;
+}
+
+label {
+    font-size: 20px;
+    padding: 10px;
+}
+
+.reFresh > div {
+    padding: 20px;
+    border-radius: 20px;
+    background: #ffffff;
+    height: auto;
+}
+
+.commentForm {
+    margin-top: 3rem;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 2rem;
+}
+
+.commentForm input {
+    width: 80%;
+    height: 5rem;
+    display: inline-block;
+}
+
+.commentForm input[type="button"] {
+    font-size: 30px;
+    width: 19%;
+    height: 5rem;
+}
+
+.loginPlease {
+    text-align: center;
+    background: #dddddd;
+    margin : 2rem 0px 2rem 0px;
+    font-size: 20px;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+.writeButton {
+    margin: 20px;
+}
+
+#commentContainer {
+    margin-top: 4rem;
+    text-align: center;
+}
+
+.reFreshComment {
+    margin-top: 2rem;
+    background: #ffffff;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 20px;
+    height: auto;
+}
+
+.subCommentContainer {
+    text-align: left;
+    margin: 10px;
+    background: #EEEEEE;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.reFreshComment > div {
+
+
+
+}
+
+
+/* 모바일 기기 css 지정*/
+@media screen and (max-width: 768px) {
+    body {
+        background: #ffffff;
+        padding: 10px;
+    }
+
+    .commentForm {
+        margin-top: 3rem;
+        background: #f2f2f2;
+        border-radius: 20px;
+        padding: 10px;
+    }
+
+    .commentForm input {
+        width: 100%;
+        display: inline-block;
+    }
+
+    .commentForm input[type="button"] {
+        margin-top: 1rem;
+        width: 100%;
+        font-size: 1rem;
+        height: 2rem;
+    }
+}
+

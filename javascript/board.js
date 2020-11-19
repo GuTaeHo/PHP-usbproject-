@@ -1,9 +1,12 @@
+
 $( document ).ready(function() {
+
     $.ajax({
         url: "./controller/getBoard.php",
-        // type: "GET",
-        // data : $('#form_song_search').serialize(),
-        data : {id : "asdf", pw : "qwer"},
+        // post 방식으로 전송
+        type: "POST",
+        // getBoard에서 어느 페이지로 부터 요청인지 알기 위한 data 객체
+        data : {pageDivide : 100},
         dataType: "json",
         cache: false,
         error: function () {
@@ -11,6 +14,7 @@ $( document ).ready(function() {
         },
         // ajax 연결에 성공했다면, html 코드 생성
         success: function (response) {
+            console.log(response);
             // tbody 내부의 html 초기화
             $('#tbody').html("");
             // html 태그들이 들어갈 tag 변수 초기화
@@ -27,7 +31,10 @@ $( document ).ready(function() {
                 // 콜백 함수의 첫 번째 인자는 배열의 인덱스 번호, 두 번째 인자는 해당 위치의 값을 의미함
                 // getBoard.php의 sql문이 저장된 response['result_data'] 배열에 키, 값을 통해 레코드를 가져옴
                 $.each(response['result_data'], function (key, val) {
-                    tag += "<tr>";
+
+                    // 게시판 글 클릭시 boardView.php에게 get 방식으로 게시판 글 번호 전달
+                    tag += "<tr onclick='viewPage(" + val.b_code + "," + val.viewcount + ")'>";
+                    
                     // 배열의 값을 추출하여 <td>태그 내부에 적용
                     tag += "<td>" + val.b_code + "</td>";
                     tag += "<td>" + val.title + "</td>";
@@ -45,3 +52,8 @@ $( document ).ready(function() {
         }
     });
 });
+
+// 게시글 클릭 시 페이지 이동과 동시에 게시글 번호, 조회수 get 방식으로 전달
+function viewPage(boardCode, viewCount) {
+    location.href='../?target=boardView&boardCode=' + boardCode + '&viewCount=' + viewCount;
+}

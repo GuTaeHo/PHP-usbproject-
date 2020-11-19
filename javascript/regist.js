@@ -271,14 +271,4 @@ function cancel() {
     history.back();
 }
 
-/*
-// 중복 검사 버튼이 눌렸을 때 호출
-function dbCheck() {
-    // window객체의 open() 메소드를 사용하면 새로운 창을 엶
-    // 첫 번째 인자에는 새창에 보여질 주소, 두 번째 인자에는 창의 이름, 세 번째 인자에는 창의 다양한 속성을 지정할 수 있음.
-     window.open("db_id_check.php?id=" + document.registForm.id.value,
-                "IdCheck",
-                "left=200, top=200, width=350, height=200, scrollbars=no, resizeable=no");
-}
-*/
 

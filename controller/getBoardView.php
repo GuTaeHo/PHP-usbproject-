@@ -6,7 +6,6 @@ require_once "../app.php";
  * json형식으로 인코딩한뒤 반환하는 작업을 함.
  */
 
-
 // p.406 참조 php에서의 header() 함수는 다운로드할 파일의 정보를 클라이언트 브라우저에게 알려주는 기능을 함
 
 // 강제적으로 캐시 무효화(서버와 클라이언트간의 동적인 html 생성을 위해)
@@ -16,6 +15,7 @@ header('Expires: '.gmdate('D, d M Y H:i:s', time()).' GMT');
 // json 전송, 문자열을 utf-8로 변경
 header('Content-type: application/json; charset=utf-8');
 
+
 // member 테이블의 m_code(멤버 테이블의 기본키)와 board 테이블의 m_code가 같은 레코드만 출력하기 위한 좌 조인
 // LEFT JOIN member m ON m.m_code=b.m_code
 $db->join("member m", "m.m_code=b.m_code", "LEFT");
@@ -24,6 +24,8 @@ $board = $db->get('board b', null, 'm.nickname, b.b_code, b.title, b.date, b.vie
 
 // 위의 코드를 sql으로 변환하면 다음과 같음. get()은 select 문을, join()은 join문에 관련된 기능을 가짐
 // SELECT m.nickname, b.b_code, b.title, b.date, b.viewcount, b.textbox FROM board b LEFT JOIN member m ON m.m_code=b.m_code;
+
+// }
 
 
 // 반환된 레코드를 result 배열에 저장

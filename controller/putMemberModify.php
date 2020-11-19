@@ -2,6 +2,12 @@
 // db와의 연동을 위해 app.php (같은 파일을 한번만) 포함
 require_once "../app.php";
 
+/**
+ * 본 파일은 memberModify.php 의 수정 버튼이 눌리면 호출 되며,
+ * 입력받은 값을 db의 member 테이블에 UPDATE하는 기능을 가지며,
+ * 에러 결과를 json형식으로 반환함
+ */
+
 // 강제적으로 캐시 무효화(서버와 클라이언트간의 동적인 html 생성을 위해)
 header('Cache-Control: no-cache, must-revalidate');
 // 날짜와 시간을 포맷 형식에 따라 포맷
