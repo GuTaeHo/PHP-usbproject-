@@ -18,7 +18,9 @@ form {
 
 /* 게시판 레코드 호버시 배경 변경*/
 #tbody tr:hover {
-    background: #E4E4E4;
+    transform: scale(1.05, 1.05);
+    background: #f1f1f1;
+    border-radius: 20px;
 }
 
 .writeButton {

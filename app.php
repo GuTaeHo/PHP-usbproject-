@@ -3,9 +3,7 @@
 $SERVER_URL = "http://".$_SERVER['HTTP_HOST'];
 
 define('_DS_', DIRECTORY_SEPARATOR);
-
 define('_SYS_', realpath(dirname(__FILE__)._DS_)); // system directory
-
 define('_CONFIG_', _SYS_._DS_.'config'._DS_);
 define('_VIEWS_', _SYS_._DS_.'views'._DS_);
 define("_JS_", _SYS_._DS_."js"._DS_);

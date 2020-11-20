@@ -1,6 +1,7 @@
 
 $( document ).ready(function() {
-
+    // 글 번호 저장 변수
+    let tableNum = 0;
     $.ajax({
         url: "./controller/getBoard.php",
         // post 방식으로 전송
@@ -14,6 +15,8 @@ $( document ).ready(function() {
         },
         // ajax 연결에 성공했다면, html 코드 생성
         success: function (response) {
+            // db의 게시글 갯수를 반환한 결과값을 변수에 저장
+            tableNum = response['board_count'];
             console.log(response);
             // tbody 내부의 html 초기화
             $('#tbody').html("");
@@ -36,12 +39,14 @@ $( document ).ready(function() {
                     tag += "<tr onclick='viewPage(" + val.b_code + "," + val.viewcount + ")'>";
                     
                     // 배열의 값을 추출하여 <td>태그 내부에 적용
-                    tag += "<td>" + val.b_code + "</td>";
+                    tag += "<td>" + tableNum + "</td>";
                     tag += "<td>" + val.title + "</td>";
                     tag += "<td>" + val.nickname + "</td>";
                     tag += "<td class='writeDate'>" + val.date + "</td>";
                     tag += "<td class='viewCount'>" + val.viewcount + "</td>";
                     tag += "</tr>"
+                    // 글 번호 줄임
+                    --tableNum;
                 });
             }
 

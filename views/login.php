@@ -1,5 +1,8 @@
+<!-- reCaptcha v3.0-->
+<script src='https://www.google.com/recaptcha/api.js?render=6Lfe0eUZAAAAAIOuKccP5Osv1UjoUmWEULFXpLTC'></script>
+
 <!-- 로그인 성공시 게시판으로 이동 -->
-<form name="loginForm" action="../model/getLogin.php" method="post">
+<form name="loginForm" action="../controller/getLogin.php" method="post">
     <div id="top-contents">
         <div class="form-group">
             <label for="exampleInputEmail1">아이디</label>
@@ -8,6 +11,10 @@
         <div class="form-group">
             <label for="exampleInputPassword1">비밀번호</label>
             <input type="password" name="passwd" class="form-control" id="passwd" placeholder="비밀번호 입력" onKeyDown="if(event.keyCode == 13) pressEnter()">
+        </div>
+        <div>
+            <!-- reCaptcha 추가-->
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
         </div>
         <br>
         <div class="form-group">

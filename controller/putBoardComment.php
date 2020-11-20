@@ -23,8 +23,11 @@ $userCode = $_POST["sessionPost"];
 // $userCode = $_SESSION["userCode"];
 
 $data = Array (
+    // 회원 번호
     'm_code' => $userCode,
+    // 게시글 번호
     'b_code' => $boardCode,
+    // 댓글 내용
     'comment' => $comment,
     // sql구문 select now() 와 같음
     // 현재 날짜 및 시간을 반환함

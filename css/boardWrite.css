@@ -1,0 +1,97 @@
+.container {
+    margin-top: 8rem;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+form {
+    max-width : 700px;
+    margin: auto;
+    padding: 3rem 2rem 3rem 2rem;
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+label {
+    font-size: 24px;
+}
+
+/* form태그 내부 컨테이너 */
+.form-group {
+    margin: 1rem auto 1rem;
+    max-width : 550px;
+}
+
+.hiddenContainer {
+    height: 50px;
+    margin : -20px auto 20px;
+}
+
+.allowContainer {
+    vertical-align: text-top;
+    height: 50px;
+    margin : -20px auto 20px;
+}
+
+.textLabel {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.textLabel:checked {
+    background: #343A40;
+}
+
+/* 인풋 checkBox 숨기기*/
+.row input {
+    display: none;
+}
+
+/* checkBox와 연결된 lable 스타일 지정 */
+.row input + label {
+    margin: 30px 10px -8px 10px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #bcbcbc;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 200ms;
+}
+
+.row input:hover + label {
+    background-color: #e6f3ff;
+    border: 3px solid #cce6ff;
+    transform: scale(1.2, 1.2);
+}
+
+.row input:checked + label {
+    background-color: #cce6ff;
+    border: 3px solid #99ceff;
+    transform: scale(1.2, 1.2);
+}
+
+/* 텍스트 박스 컨테이너 */
+.textAreaContainer {
+    margin: auto;
+    max-width : 550px;
+}
+
+#boardContent {
+    border: 2px solid #E4E4E4;
+    padding: 10px;
+    border-radius: 15px;
+    outline: none;
+    transition: 300ms;
+}
+
+#boardContent:hover {
+    border: 2px solid #999999;
+}
+
+.form-group button {
+    border-radius: 10px;
+    font-size: large;
+    width: 180px;
+    height: 60px;
+}

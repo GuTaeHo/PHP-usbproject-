@@ -39,6 +39,9 @@
 .current-id p {
     padding-bottom: 20px;
 }
+.current-id h5 {
+    margin-top: 20px;
+}
 
 .content {
     max-width: 70%;

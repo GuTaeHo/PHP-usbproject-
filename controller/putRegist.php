@@ -23,6 +23,27 @@ $nickname = $_POST["nickname"];
 $name = $_POST['name'];
 $email = $_POST["email"];
 
+
+//recaptcha v3 사용
+$captcha = $_POST['g-recaptcha-response'];
+// 발급 받은 사이트 키를 저장
+$secretKey = "6Lfe0eUZAAAAADiu94iBRJ4d07vyZol_D5Wqz8Jg";
+$ip = $_SERVER['REMOTE_ADDR'];
+$response = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=".$secretKey."&response=".$captcha."&remoteip=".$ip);
+$responseKeys = json_decode($response,true);
+
+// 인증에 성공한 경우
+if($responseKeys["success"]) {
+    //통과한 경우의 코드를 작성
+    $result['captcha_result'] = "인증 성공";
+    $result['captcha_error'] = false;
+}
+else {
+    $result['captcha_result'] = "인증 실패";
+    $result['captcha_error'] = true;
+    return;
+}
+
 // 객체를 하나 생성한 뒤, post방식으로 받은 데이터를 객체의 키, 값으로 저장
 $data = Array (
     "id" => $id,
@@ -33,7 +54,9 @@ $data = Array (
     // sql구문 select now() 와 같음
     // 현재 날짜 및 시간을 반환함
     // 날짜 형식 ex)  2020-11-14 19:51:49
-    "date" => $db->now()
+    "date" => $db->now(),
+    // 권한 부여 (1: 일반 사용자)
+    "permission" => 1,
 );
 
 $data = array_filter($data);

@@ -271,4 +271,12 @@ function cancel() {
     history.back();
 }
 
+// reCaptcha 기능 함수
+grecaptcha.ready(function() {
+    grecaptcha.execute('6Lfe0eUZAAAAAIOuKccP5Osv1UjoUmWEULFXpLTC', {action: 'regist'})
+        .then(function(token) {
+            document.getElementById('g-recaptcha-response').value = token;
+        });
+});
+
 

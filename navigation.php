@@ -19,11 +19,16 @@ session_start();
                     <a class="nav-link" href="?target=bluetoothpage">Bluetooth</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?target=wifipage">WIFI</a>
-                </li>
-                <li class="nav-item">
                     <a class="nav-link" href="?target=cablepage">Cable</a>
                 </li>
+
+                <!-- 현재 로그인 된 사용자가 관리자이거나 매니저라면 표시-->
+                <?php if ($_SESSION["userPermission"] == "관리자" || $_SESSION["userPermission"] == "매니저") { ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?target=memberManagement">management</a>
+                    </li>
+                <?php } ?>
+
                 <li class="nav-item">
                     <a class="nav-link" href="?target=board">Board</a>
                 </li>

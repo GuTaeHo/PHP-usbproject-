@@ -1,6 +1,5 @@
 <!-- 비 로그인시 출력 -->
 <?php
-    session_start();
     if (!$_SESSION['userId']) {
 ?>
 <!-- 콘텐츠 최상위 경고창 -->
@@ -22,7 +21,12 @@
     } else {
 ?>
 <!-- 사용자 id 표시 O-->
-<div class="current-id" onclick="idClick()"><p>안녕하세요</p><?=$_SESSION['userId']?>님</div>
+<div class="current-id" onclick="idClick()">
+    <p>안녕하세요</p>
+    <div><?=$_SESSION['userId']?>님</div>
+    <h5>현재 권한 </h5>
+    <div><?=$_SESSION["userPermission"]?></div>
+</div>
 <?php } ?>
 
 <h1 class="content-title">Main Page</h1>

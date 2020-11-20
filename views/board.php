@@ -7,7 +7,7 @@
             <th>번호</th>
             <th>제목</th>
             <th>작성자</th>
-            <th class="writeDate">날짜</th>
+            <th class="writeDate">작성일</th>
             <th class="viewCount">조회수</th>
         </tr>
         </thead>

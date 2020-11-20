@@ -33,3 +33,11 @@ function cancel() {
     // 홈 화면으로
     location.href = '../index.php';
 }
+
+// reCaptcha 기능 함수
+grecaptcha.ready(function() {
+    grecaptcha.execute('6Lfe0eUZAAAAAIOuKccP5Osv1UjoUmWEULFXpLTC', {action: 'login'})
+        .then(function(token) {
+            document.getElementById('g-recaptcha-response').value = token;
+        });
+});

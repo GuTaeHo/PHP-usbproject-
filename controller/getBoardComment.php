@@ -17,7 +17,7 @@ header('Content-type: application/json; charset=utf-8');
 // get형식의 boardCode의 값을 변수에 저장
 $boardCord = $_GET["boardCode"];
 
-// date를 기준으로 정렬
+// date(날짜)를 기준으로 정렬
 $db->orderBy("date","desc");
 // 게시글 번호가 $boardCord와 일치하는 레코드들을
 $db->where("b_code", $boardCord);
@@ -27,6 +27,10 @@ $db->join("member m", "m.m_code=c.m_code","LEFT");
 
 // comment테이블, member테이블의 nickname, c_code, comment, date 컬럼을 조회
 $boardComment = $db->get("comment c", null, "m.nickname, c.comment, c.date");
+
+if ($boardComment["b.comments"] == "deny") {
+    $result['deny'] = true;
+}
 
 // 위의 코드를 sql으로 변환하면 다음과 같음.
 // SELECT m.nickname, c.c_code, c.m_code, c.comment, c.date FROM comment c LEFT JOIN member m ON m.m_code = c.c_code WHERE b_code = $boardCord
