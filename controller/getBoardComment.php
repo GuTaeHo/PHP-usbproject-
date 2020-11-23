@@ -26,7 +26,7 @@ $db->where("b_code", $boardCord);
 $db->join("member m", "m.m_code=c.m_code","LEFT");
 
 // comment테이블, member테이블의 nickname, c_code, comment, date 컬럼을 조회
-$boardComment = $db->get("comment c", null, "m.nickname, c.comment, c.date");
+$boardComment = $db->get("comment c", null, "m.nickname, c.comment, c.date, c.c_code, c.caution");
 
 if ($boardComment["b.comments"] == "deny") {
     $result['deny'] = true;

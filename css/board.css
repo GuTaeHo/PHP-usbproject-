@@ -78,11 +78,16 @@ form {
         display: none;
     }
 
+    /* 공개여부 숨기기 */
+    .type {
+        display: none;
+    }
+
     .loginPlease {
-        font-size: 24px;
-        padding: 1rem 0rem 1rem 0rem;
-        color : #ffffff;
-        background: #D9D9FF;
-        border-radius: 10px;
+        margin-top: 30px;
+        font-size: 20px;
+        padding: 0.5rem 0rem;
+        background: #e8e8e8;
+        border-radius: 30px;
     }
 }

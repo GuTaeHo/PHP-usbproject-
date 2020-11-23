@@ -1,13 +1,14 @@
 
 $( document ).ready(function() {
+    // 세션 정보 (사용자 권한)을 변수에 저장
+    let sessionPermission = document.boardForm.sessionPermission;
+
     // 글 번호 저장 변수
     let tableNum = 0;
     $.ajax({
         url: "./controller/getBoard.php",
         // post 방식으로 전송
         type: "POST",
-        // getBoard에서 어느 페이지로 부터 요청인지 알기 위한 data 객체
-        data : {pageDivide : 100},
         dataType: "json",
         cache: false,
         error: function () {
@@ -17,7 +18,6 @@ $( document ).ready(function() {
         success: function (response) {
             // db의 게시글 갯수를 반환한 결과값을 변수에 저장
             tableNum = response['board_count'];
-            console.log(response);
             // tbody 내부의 html 초기화
             $('#tbody').html("");
             // html 태그들이 들어갈 tag 변수 초기화
@@ -34,17 +34,30 @@ $( document ).ready(function() {
                 // 콜백 함수의 첫 번째 인자는 배열의 인덱스 번호, 두 번째 인자는 해당 위치의 값을 의미함
                 // getBoard.php의 sql문이 저장된 response['result_data'] 배열에 키, 값을 통해 레코드를 가져옴
                 $.each(response['result_data'], function (key, val) {
-
-                    // 게시판 글 클릭시 boardView.php에게 get 방식으로 게시판 글 번호 전달
-                    tag += "<tr onclick='viewPage(" + val.b_code + "," + val.viewcount + ")'>";
-                    
-                    // 배열의 값을 추출하여 <td>태그 내부에 적용
-                    tag += "<td>" + tableNum + "</td>";
-                    tag += "<td>" + val.title + "</td>";
-                    tag += "<td>" + val.nickname + "</td>";
-                    tag += "<td class='writeDate'>" + val.date + "</td>";
-                    tag += "<td class='viewCount'>" + val.viewcount + "</td>";
-                    tag += "</tr>"
+                    // 세션에 등록된 관리자급 권한이면 출력
+                    if ((sessionPermission.value === "매니저") || (sessionPermission.value === "관리자")) {
+                        // 게시판 글 클릭시 boardView.php에게 get 방식으로 게시판 글 번호 전달
+                        tag += "<tr onclick='viewPage(" + val.b_code + "," + val.viewcount + ")'>";
+                        // 배열의 값을 추출하여 <td>태그 내부에 적용
+                        tag += "<td>" + tableNum + "</td>";
+                        tag += "<td>" + val.title + "</td>";
+                        tag += "<td>" + val.nickname + "</td>";
+                        tag += "<td class='writeDate'>" + val.date + "</td>";
+                        tag += "<td class='viewCount'>" + val.viewcount + "</td>";
+                        tag += "<td class='type'>" + val.type + "</td>";
+                        tag += "</tr>"
+                    } else {
+                        // 사용자 등급이면 숨겨진글 표시 안함
+                        if (val.type === "display") {
+                            tag += "<tr onclick='viewPage(" + val.b_code + "," + val.viewcount + ")'>"
+                            tag += "<td>" + tableNum + "</td>";
+                            tag += "<td>" + val.title + "</td>";
+                            tag += "<td>" + val.nickname + "</td>";
+                            tag += "<td class='writeDate'>" + val.date + "</td>";
+                            tag += "<td class='viewCount'>" + val.viewcount + "</td>";
+                            tag += "</tr>"
+                        }
+                    }
                     // 글 번호 줄임
                     --tableNum;
                 });

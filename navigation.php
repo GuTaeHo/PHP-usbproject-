@@ -25,7 +25,7 @@ session_start();
                 <!-- 현재 로그인 된 사용자가 관리자이거나 매니저라면 표시-->
                 <?php if ($_SESSION["userPermission"] == "관리자" || $_SESSION["userPermission"] == "매니저") { ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="?target=memberManagement">management</a>
+                        <a class="nav-link" href="?target=memberManagement">manage</a>
                     </li>
                 <?php } ?>
 

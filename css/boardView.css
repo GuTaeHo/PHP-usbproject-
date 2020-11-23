@@ -2,8 +2,16 @@ body {
     padding: 5rem;
 }
 
-h1 {
-    text-align: center;
+/* 신고 이미지 사이즈 */
+img {
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: 150ms;
+}
+
+img:hover {
+    cursor: pointer;
+    transform: scale(1.2, 1.2);
 }
 
 .container {
@@ -15,18 +23,65 @@ label {
     padding: 10px;
 }
 
-.reFresh > div {
-    padding: 20px;
-    border-radius: 20px;
+/* 게시글 컨테이너 */
+.reFresh {
     background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 30px #D8D8D8;
+    padding: 1rem;
+}
+
+.reFresh > div {
+    font-family: 'Nanum Gothic', sans-serif;
+    padding: 10px;
+    border-radius: 20px;
+    font-size: 16px;
     height: auto;
 }
+
+/* 게시글 제목 */
+.reFresh div:nth-child(1) {
+    font-size: 24px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+/* 게시글 작성일 */
+.reFresh div:nth-child(2) {
+    float: right;
+}
+
+/* 게시글 작성자 */
+.reFresh div:nth-child(3) {
+    font-weight: bold;
+    font-size: 18px;
+    display: inline-block;
+    width: 70%;
+}
+
+/* 게시글 조회수 */
+.reFresh div:nth-child(4) {
+    display: inline-block;
+    text-align: right;
+    float: right;
+}
+
+/* 게시글 조회수 */
+.reFresh div:nth-child(3) {
+    font-size: 18px;
+}
+
 
 .commentForm {
     margin-top: 3rem;
     background: #ffffff;
+    box-shadow: 5px 5px 30px #D8D8D8;
     border-radius: 20px;
     padding: 2rem;
+}
+
+h4 {
+    margin-bottom: 1rem;
 }
 
 .commentForm input {
@@ -55,46 +110,75 @@ label {
 }
 
 #commentContainer {
-    margin-top: 4rem;
+    margin-top: 6rem;
     text-align: center;
 }
 
+/* 댓글 컨테이너 */
 .reFreshComment {
-    margin-top: 2rem;
-    background: #ffffff;
-    padding: 10px;
+    box-shadow: 5px 5px 30px #D8D8D8;
+    padding: 5px;
     font-size: 16px;
     border-radius: 20px;
     height: auto;
 }
 
+/* 내부 댓글 컨테이너 */
 .subCommentContainer {
     text-align: left;
-    margin: 10px;
-    background: #EEEEEE;
-    border-radius: 10px;
+    margin: 18px 10px;
+    background: #f1f1f1;
+    border-radius: 7px;
     padding: 10px;
+    transition: 300ms;
 }
 
-.reFreshComment > div {
+/*
+.subCommentContainer:hover {
+    background: #f4f4f4;
+    box-shadow: 5px 5px 20px #A4A4A4;
+    transform: scale(1.1, 1.1);
+}
+*/
 
-
-
+/* 댓글 닉네임 */
+.subCommentContainer div:nth-child(1) {
+    font-size: 1.2rem;
+    display: inline-block;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
+/* 댓글 작성일 */
+.subCommentContainer div:nth-child(2) {
+    float: right;
+}
+
+/* 댓글 신고 */
+.subCommentContainer div:nth-child(3) {
+    padding: 0px 1rem 0px;
+    float: right;
+}
 
 /* 모바일 기기 css 지정*/
 @media screen and (max-width: 768px) {
     body {
         background: #ffffff;
-        padding: 10px;
+        padding: 1rem 0rem;
+    }
+
+    .reFresh {
+        background: #ffffff;
+        border-radius: 0px;
+        box-shadow: none;
+        padding: 0rem;
     }
 
     .commentForm {
         margin-top: 3rem;
-        background: #f2f2f2;
+        background: #ffffff;
         border-radius: 20px;
-        padding: 10px;
+        padding: 20px;
     }
 
     .commentForm input {
@@ -107,6 +191,35 @@ label {
         width: 100%;
         font-size: 1rem;
         height: 2rem;
+    }
+
+    /* 게시글 제목 */
+    .reFresh div:nth-child(1) {
+        font-size: 1.2rem;
+        font-weight: bold;
+        display: inline-block;
+    }
+
+    /* 게시글 작성일 */
+    .reFresh div:nth-child(2) {
+        font-size: 0.8rem;
+        float: right;
+    }
+
+    /* 게시글 작성자 */
+    .reFresh div:nth-child(3) {
+        font-weight: bold;
+        font-size: 1.1rem;
+        display: inline-block;
+        width: 70%;
+    }
+
+    /* 게시글 조회수 */
+    .reFresh div:nth-child(4) {
+        font-size: 0.8rem;
+        display: inline-block;
+        text-align: right;
+        float: right;
     }
 }
 

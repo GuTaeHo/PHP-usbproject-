@@ -1,7 +1,5 @@
-<h1>게시판 글보기 페이지 입니다.</h1>
-
 <div class="container-fluid container">
-    <!-- ajax 통신 -->
+    <!-- 게시글 동적 생성 -->
     <div class="reFresh">
         <!-- 비동기적으로 태그 생성-->
     </div>
@@ -24,9 +22,8 @@
         <?php } ?>
     </form>
     <div id="commentContainer">
-        <h2>댓글</h2>
-        <!-- ajax 통신 -->
-        <div class="reFreshComment">
+        <!-- 댓글 동적 생성 -->
+        <div class="reFreshComment" id="commentNode">
             <!-- 비동기적으로 태그 생성-->
         </div>
     </div>

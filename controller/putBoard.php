@@ -36,23 +36,76 @@ if (empty($comments)) {
     $comments = "deny";
 }
 
+// --------------------- 파일 업로드 --------------------------
+
+// 파일관련 정보 추출
+$fileName = $_FILES["uploadFile"]["name"];
+$fileTempName = $_FILES["uploadFile"]["tmp_name"];
+$fileType = $_FILES["uploadFile"]["type"];
+$fileSize = $_FILES["uploadFile"]["size"];
+$fileError  = $_FILES["uploadFile"]["error"];
+
+// 업로드 경로 저장
+$fileUploadDir = "../usb_project/resource/postboard/";
+
+// 제목과 내용의 쿼티션 기호를 일반 문자로 인식되도록 치환
+$title = htmlspecialchars($title, ENT_QUOTES);
+$boardContent = htmlspecialchars($boardContent, ENT_QUOTES);
+
+// 파일 업로드 이상 유무 체크
+if ($fileName && !$fileError) {
+    // .(점)을 기준으로 문자열 분리
+    $file = explode(".", $fileName);
+    // 분리된 파일이름 저장
+    $expFileName = $file[0];
+    // 현재 날짜로 만들어진 새로운 파일명에 확장자로 사용될 변수 $fileExt에 확장자 저장
+    $expFileExt = $file[1];
+
+    // 현재 시간을 파일의 이름으로 저장 (ex : 2020-11-22 01:47:22)
+    $newFileName = date("Y-m-d H:i:s");
+    // 위의 새이름과 분리된 확장자를 합침
+    $fakeFileName = $newFileName.".".$expFileExt;
+    // 서버의 지정된 위치에 파일을 저장하기 위해 경로와 파일명을 합침
+    $serverUploadFile = $fileUploadDir.$fakeFileName;
+    
+    // 서버에 파일을 올리는 move_uploaded_file() 함수를 실행
+    if (!move_uploaded_file($fileTempName, $serverUploadFile)) {
+        // 파일올리기에 실패했다면
+        $result['file_Upload_Error'] = true;
+    }
+}
+
+else {
+    // 업로드를 실패했다면 파일 이름이 저장된 변수 초기화
+    $fileName = "";
+    $fileType = "";
+    $fakeFileName = "";
+    $result['file_Upload_Error'] = false;
+}
+
+// --------------------- DataBase INSERT --------------------------
+
 $data = Array (
     'title' => $title,
     'm_code' => $memberCode,
     'textbox' => $boardContent,
     'date' => $db->now(),
     'type' => $type,
-    'comments' => $comments
+    'comments' => $comments,
+    // 원본 파일명
+    'file_name' => $fileName,
+    // 파일 확장자
+    'file_type' => $fileType,
+    // 조합된 파일명
+    'file_copied' => $fakeFileName,
 );
 
 $queryResult = $db->insert('board', $data);
 
 $result['result_data'] = $queryResult;
-
 $result["error"] = false;
 
 echo json_encode($result);
-
 
 
 

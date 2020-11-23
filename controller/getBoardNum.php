@@ -22,6 +22,10 @@ $viewCount = $_GET["viewCount"];
 // 조회수 1 증가
 ++$viewCount;
 
+/**
+ * --------------------------- UPDATE 문 ---------------------------
+ */
+
 // 증가된 조회수 객체에 담음
 $data = Array (
     'viewcount' => $viewCount,
@@ -34,7 +38,9 @@ $db->update('board', $data);
 // 위의 코드를 sql문으로 변환하면 다음과 같음
 // UPDATE board SET viewcount = $viewCount WHERE b_code = $boardCode
 
-
+/**
+ * --------------------------- SELECT 문 ---------------------------
+ */
 
 // member 테이블의 m_code(멤버 테이블의 기본키)와 board 테이블의 m_code가 같은 레코드만 출력하기 위한 좌 조인
 // LEFT JOIN member m ON m.m_code=b.m_code
@@ -46,6 +52,7 @@ $board = $db->get('board b', null, 'm.nickname, b.b_code, b.title, b.date, b.vie
 
 // 위의 코드를 sql으로 변환하면 다음과 같음. get()은 select 문을, join()은 join문을, where()는 where문에 관한 기능을 가짐
 // SELECT m.nickname, b.b_code, b.title, b.date, b.viewcount, b.textbox FROM board b LEFT JOIN member m ON m.m_code=b.m_code WHERE b.b_code = $boardCode;
+
 
 // 반환된 레코드를 result 배열에 저장
 $result['result_data'] = $board;

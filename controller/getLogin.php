@@ -28,6 +28,7 @@ if($responseKeys["success"]) {
 else {
     // 실패한 경우 (봇)
     $result = "인증 실패";
+    return;
 }
 
 

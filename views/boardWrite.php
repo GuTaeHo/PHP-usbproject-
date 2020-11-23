@@ -1,6 +1,6 @@
-<div class="container">
-    <!-- db로 입력된 값 INSERT -->
-    <form name="boardWriteForm" id="boardWriteForm">
+<div class="container" >
+    <!-- boardWrite.js 에서 ajax로 submit()을 대신함-->
+    <form name="boardWriteForm" id="boardWriteForm" enctype="multipart/form-data">
         <!-- 작성자 닉네임 -->
         <div class="form-group">
             <label>작성자</label>
@@ -29,6 +29,14 @@
         <div class="textAreaContainer">
             <textarea name="boardContent" cols="57" rows="10" id="boardContent" placeholder="내용을 입력해 주세요"></textarea>
             <div class="counter"></div>
+        </div>
+        <!-- 파일 첨부 -->
+        <div class="textAreaContainer">
+            <div class="filebox">
+                <input class="upload-name" name="imagePost" value="파일선택" disabled="disabled">
+                <label for="ex_filename">업로드</label>
+                <input type="file" id="ex_filename" name="uploadFile" class="upload-hidden">
+            </div>
         </div>
         <div class="form-group">
             <label for="exampleInputEmail1"></label>

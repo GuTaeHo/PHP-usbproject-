@@ -1,11 +1,26 @@
 // 쿼리스트링 저장 변수
 let urlParams;
 
+// replaceAll prototype 선언
+// 응답받은 페이지의 문자열을 치환하기 위한 함수 선언 (치환 대상, 바뀔 문자)
+String.prototype.replaceAll = function(org, dest) {
+    return this.split(org).join(dest);
+}
+
 $( document ).ready(function() {
 
+    // 게시글을 가져오는 함수
+    getBoardNum();
+    
+    // 댓글을 가져오는 함수
+    getBoardComment();
+
+});
+
+// 게시글을 가져오는 함수
+function getBoardNum(){
     // 쿼리스트링 가져옴
     urlParams = getUrlParams();
-
 
     // 비동기 게시글 정보 출력
     $.ajax({
@@ -32,24 +47,20 @@ $( document ).ready(function() {
                 alert(response['msg']);
 
             } else {
-                console.log(urlParams.boardCode);
-                console.log(response['result_data']);
                 // each() 메서드는 첫 번째 인자로 배열이나 유사 배열형식인 객체를 받음, 두 번째 인자로 콜백 함수를 받으며
                 // 콜백 함수의 첫 번째 인자는 배열의 인덱스 번호, 두 번째 인자는 해당 위치의 값을 의미함
                 // getBoard.php의 sql문이 저장된 response['result_data'] 배열에 키, 값을 통해 레코드를 가져옴
                 $.each(response['result_data'], function (key, val) {
-                    div += "<label>글번호</label>" +
-                        "<div>" + val.b_code + "</div>"
-                    div += "<label>제목</label>" +
-                        "<div>" + val.title + "</div>"
-                    div += "<label>작성자</label>" +
-                        "<div>" + val.nickname + "</div>"
-                    div += "<label>작성일</label>" +
-                        "<div>" + val.date + "</div>"
-                    div += "<label>조회수</label>" +
-                        "<div>" + val.viewcount + "</div>"
-                    div += "<label>게시글</label>" +
-                        "<div>" + val.textbox + "</div>"
+                    // 게시글 내용 변수에 저장
+                    let textBox = val.textbox;
+                    // 내용의 \n기호를 html 줄바꿈 기호로 치환
+                    textBox = textBox.replaceAll("\n", "<br>");
+
+                    div += "<div>" + val.title + "</div>"
+                    div += "<div>" + val.date + "</div>"
+                    div += "<div>" + val.nickname + "</div>"
+                    div += "<div>조회수 " + val.viewcount + "</div>"
+                    div += "<div>" + textBox + "</div>"
                 });
             }
 
@@ -59,7 +70,12 @@ $( document ).ready(function() {
 
         }
     }); // end ajax
+}
 
+// 댓글을 가져오는 함수
+function getBoardComment() {
+    let reFreshCommentNode = document.getElementById('commentNode');
+    
     // 비동기 댓글 출력
     $.ajax({
         url: "./controller/getBoardComment.php",
@@ -73,8 +89,11 @@ $( document ).ready(function() {
         },
         // ajax 연결에 성공했다면, html 코드 생성
         success: function (response) {
+
             // tbody 내부의 html 초기화
             $('.reFreshComment').html("");
+
+            $('.reFreshComment').css("background", "#ffffff");
             // html 태그들이 들어갈 tag 변수 초기화
             var div = "";
 
@@ -85,27 +104,88 @@ $( document ).ready(function() {
                 alert(response['msg']);
 
             } else {
-                console.log(urlParams.boardCode);
-                console.log(response['result_data']);
+                let i = 0;
+                // comment테이블의 기본키 저장 배열
+                // 각각의 고유번호, 경고수 를 배열로 저장
+                let commentCode = new Array();
+                let cautionNum = new Array();
+
                 // each() 메서드는 첫 번째 인자로 배열이나 유사 배열형식인 객체를 받음, 두 번째 인자로 콜백 함수를 받으며
                 // 콜백 함수의 첫 번째 인자는 배열의 인덱스 번호, 두 번째 인자는 해당 위치의 값을 의미함
                 // getBoard.php의 sql문이 저장된 response['result_data'] 배열에 키, 값을 통해 레코드를 가져옴
                 $.each(response['result_data'], function (key, val) {
+                    // 배열에 첫 번째 댓글의 고유 번호와 경고 수를 순차적으로 저장
+                    commentCode[i] = val.c_code;
+                    cautionNum[i] = val.caution;
                     div += "<div class='subCommentContainer'>"
                     div += "<div>" + val.nickname + "</div>"
                     div += "<div>" + val.date + "</div>"
+                    div += '<?php if($_SESSION["userId"]) { ?>'
+                    div +=  "<div class='cautionContainer'>" +
+                        val.caution +"&nbsp<img src='../resource/warning.png' class='cautionImage' onclick='cationClicked(" + i + "," + commentCode[i] + ", " + cautionNum[i] + ")'/>" +
+                        "</div>"
+                    div += '<?php } else {?>'
+                    div += "<div></div>"
+                    div += '<?php } ?>'
                     div += "<div>" + val.comment + "</div>"
                     div += "</div>"
+                    ++i;
                 });
             }
 
             $('.reFreshComment').html(div);
         },
         complete: function () {
-
+            // id가 commentNode인 자식의 개수 콘솔에 출력
+            console.log(reFreshCommentNode.childElementCount);
+            // 자식이 아무도 없다면
+            if (reFreshCommentNode.childElementCount === 0) {
+                reFreshCommentNode.style.background='#f2f2f2';
+                reFreshCommentNode.style.boxShadow='none';
+            }
         }
     }); // end ajax
-});
+}
+
+// 버튼 상태 저장 변수
+// let toggle = 0;
+
+// 신고 버튼이 클릭 될 때마다 호출되는 함수
+// 매개 변수로 몇번 댓글인지 구별하는 i와 댓글 기본키, 댓글의 경고 수가 들어옴
+function cationClicked(i, commentCode, caution) {
+    let cautionImage = document.getElementsByClassName('cautionImage');
+
+    if (confirm("이 댓글을 신고하시겠습니까?")) {
+        // 비동기 댓글 신고 기능 수행
+        $.ajax({
+            url: "./controller/putCautionUpdate.php",
+            type : "POST",
+            // POST 방식으로 게시글 번호와, 댓글 고유값(댓글 테이블 기본키), 경고수 전달
+            data : { "boardCode": urlParams.boardCode, "commentCode" : commentCode, "caution" : caution},
+            dataType: "json",
+            cache: false,
+            error: function () {
+                console.log('connection error..');
+            },
+            // ajax 연결에 성공했다면
+            success: function (response) {
+                if (response['error']) {
+                    alert(response);
+                } else {
+                    console.log(response);
+                    alert("댓글이 신고되었습니다.");
+                    // 댓글 비동기 새로고침
+                    getBoardComment();
+                }
+            },
+        }); // end ajax
+        // 이미지 변경
+        cautionImage[i].src = '../resource/warningClicked.png';
+    } else {
+        // cautionImage[i].src = '../resource/warning.png';
+    }
+}
+
 
 // url 주소의 쿼리 스트링을 들고오기 위한 함수 
 function getUrlParams() {
@@ -113,6 +193,7 @@ function getUrlParams() {
     window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
     return params;
 }
+
 
 // 댓글 쓰기 버튼이 눌리면 호출
 function showCommentForm() {
@@ -144,11 +225,6 @@ function commentFormSubmit() {
         return;
     }
 
-
-    // inputText.value="";
-
-     // document.boardCommentSubmitForm.submit();
-
     // 비동기 댓글 게시
     $.ajax({
         url: "./controller/putBoardComment.php",
@@ -176,6 +252,8 @@ function commentFormSubmit() {
         complete: function () {
             // 댓글 작성란 입력값 초기화
             inputText.value = "";
+            // 댓글 비동기 새로고침
+            getBoardComment();
         }
     }); // end ajax
 }

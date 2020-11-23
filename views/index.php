@@ -51,17 +51,19 @@
                     </div>
                 </div>
                 <div class="carousel-item">
-                    <a href="./?target=wifipage"><img src="./resource/wifi1.jpg" class="d-block w-100" alt="..."></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h1>WIFI?</h1>
-                        <p>와이파이는 전자기기들이 무선랜(WLAN)에 연결할 수 있게 하는 기술입니다. </p>
-                    </div>
-                </div>
-                <div class="carousel-item">
                     <a href="./?target=bluetoothpage"><img src="./resource/bluetooth1.jpg" class="d-block w-100" alt="..."></a>
                     <div class="carousel-caption d-none d-md-block">
                         <h1>BlueTooth?</h1>
-                        <p>근거리 무선통신기술. 여러가지 전자제품의 무선규격을 통일시키자는 의도로 <br>기술의 이름을 블루투스로 제정했습니다.</p>
+                        <p>근거리 무선통신기술. 여러가지 전자제품의 무선규격을 통일시키자는</p>
+                        <p>의도로 기술의 이름을 블루투스로 제정했습니다.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a href="./?target=cablepage"><img src="./resource/cable.jpg" class="d-block w-100" alt="..."></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Cable</h1>
+                        <p>전자기기를 사용하다보면 셀 수 없이 많은 케이블들이 있습니다.</p>
+                        <p>케이블의 유형과 그에 맞는 사용법을 알려드립니다.</p>
                     </div>
                 </div>
             </div>

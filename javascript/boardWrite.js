@@ -1,3 +1,23 @@
+// 파일명을 boardCehckInput() 메소드에서 참조할 수 있도록 전역 변수 설정
+let filename;
+
+$(document).ready(function() {
+    var fileTarget = $('.filebox .upload-hidden');
+    // input file 의 값이 변경(업로드)되면 호출되는 함수
+    fileTarget.on('change', function(){
+        if(window.FileReader){ // modern browser
+            // 파일명을 변수에 저장
+            filename = $(this)[0].files[0].name;
+        } else { // old IE
+            filename = $(this).val().split('/').pop().split('\\').pop(); // 파일명만 추출
+        }
+
+        // 추출한 파일명 삽입
+        $(this).siblings('.upload-name').val(filename);
+    });
+});
+
+
 // 취소 버튼이 눌렸때 호출
 function cancel() {
     // 이전 화면으로
@@ -8,7 +28,6 @@ function cancel() {
 function boardCheckInput() {
     let title = document.getElementById('inputTitle');
     let boardContent = document.getElementById('boardContent');
-
 
     if (title.value === "") {
         alert("제목을 입력해 주세요!!!");
@@ -28,13 +47,28 @@ function boardCheckInput() {
         }
     }
 
+    // form 태그가 있는 경우
+    // form 태그가 html에 있는경우(여기서는 create_form이라는 id로 세팅된 form 태그)
+    // FormData 생성자 함수에 인자로 넘겨서 input 태그에 있는 데이터들을 따로 세팅하지 않아도 사용할 수 있다.
+    var createForm = document.getElementById("boardWriteForm");
+    var formData = new FormData(createForm);
 
-    // 비동기 댓글 게시
+    console.log(formData);
+
+    // 게시글 비동기 게시
     $.ajax({
         url: "./controller/putBoard.php",
         type : "POST",
-        // form태그 하위의 input에 모든 값들을 POST형식으로 보냄
-        data : $("#boardWriteForm").serialize(),
+        // form태그의 모든 값들을 POST형식으로 보냄
+        // $('#boardWriteForm').serialize(),
+        data : formData,
+        // input file타입의 데이터를 보내기 위해 설정
+        enctype: 'multipart/form-data',
+        // formData를 string으로 변환하지 않음
+        processData: false,
+        // content-type 헤더가 multipart/form-data로 전송되게 함
+        contentType: false,
+
         dataType: "json",
         cache: false,
         error: function () {
@@ -48,6 +82,14 @@ function boardCheckInput() {
             if (response['error']) {
                 alert("ajax 연결 성공, db 연결 실패");
             } else {
+                // 파일업로드에 실패 했다면
+                if (response['file_Upload_Error']) {
+                    alert('파일 업로드 실패...');
+                    // 이전 화면으로
+                    // history.back();
+                } else {
+                    alert('파일 업로드 성공!');
+                }
                 console.log(response);
             }
 
@@ -75,3 +117,5 @@ $('#boardContent').keyup(function (e){
         $('#counter').html("(1000 / 1000자)");
     }
 });
+
+

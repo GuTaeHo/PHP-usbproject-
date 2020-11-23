@@ -8,7 +8,7 @@ document.addEventListener('scroll', function() {
     // 스크롤을 아래로 내리면 (_documentY - window.__scrollPosition >= 0) 식은 false이기 때문에 -1이 _direction에 저장
     let _direction = _documentY - window.__scrollPosition >= 0 ? 1 : -1;
 
-    // 현재 스크롤 위치를 업데이트
+    // 현재 스크롤 위치를 0으로 초기화
     window.__scrollPosition = _documentY;
 
     var header = document.getElementById('header');
