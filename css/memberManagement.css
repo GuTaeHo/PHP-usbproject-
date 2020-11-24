@@ -1,0 +1,120 @@
+.container {
+    margin-top: 8rem;
+    font-size: 14px;
+}
+
+h3 {
+    background: #454B50;
+    color: #f1f1f1;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 30px;
+    box-shadow: 5px 5px 20px #A4A4A4;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+/* 현재 접속자 id style 지정 */
+.current-id {
+    width: 200px;
+    position: fixed;
+    margin: 0;
+    top: 144px;
+    left: 2rem;
+    background: #ffffff;
+    font-size: 22px;
+    text-align: center;
+    padding: 10px 15px 10px 15px;
+    color: #4d4d4d;
+    border-radius: 15px;
+    box-shadow: 3px 3px 10px #A4A4A4;
+    transition: 300ms;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.current-id:hover {
+    transform: scale(1.15, 1.15);
+    background: #343A40;
+    color: #f1f1f1;
+}
+
+.current-id p {
+    padding-bottom: 20px;
+}
+.current-id h5 {
+    margin-top: 20px;
+}
+
+/* 관리 페이지 설명 박스 지정 */
+.help {
+    position: fixed;
+    width: 200px;
+    height: 80px;
+    margin: 0px;
+    top: 400px;
+    left: 2rem;
+    background: #ffffff;
+    padding: 10px;
+    color: #4d4d4d;
+    border-radius: 15px;
+    box-shadow: 3px 3px 10px #A4A4A4;
+    transition: 300ms;
+    cursor: pointer;
+    z-index: 9999;
+}
+
+.help p {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.hiddenHelpText {
+    text-align: left;
+    padding: 0rem 1rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    margin: 5%;
+}
+
+/* 회원 정보 컨테이너 */
+.memberContainer {
+    margin: 6rem auto 6rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+/* 게시글 컨테이너 */
+.boardContainer {
+    margin: 6rem auto 6rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+/* 댓글 컨테이너 */
+.commentContainer {
+    margin: 6rem auto 6rem;
+    padding: 1.5rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 5px 5px 30px #bfbfbf;
+}
+
+tbody tr {
+    background: white;
+    transition: 200ms;
+    cursor: pointer;
+}
+
+/* 게시판 레코드 호버시 배경 변경*/
+tbody tr:hover {
+    transform: scale(1.05, 1.05);
+    background: #f1f1f1;
+    border-radius: 20px;
+}
