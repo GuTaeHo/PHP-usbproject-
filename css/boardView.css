@@ -71,6 +71,17 @@ label {
     font-size: 18px;
 }
 
+/* 게시글 이미지 */
+.fileImage img{
+    width: 100%;
+    height: auto;
+}
+
+.fileImage img:hover {
+    cursor: default;
+    transform: scale(1, 1);
+}
+
 
 .commentForm {
     margin-top: 3rem;

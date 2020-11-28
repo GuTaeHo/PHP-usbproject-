@@ -34,27 +34,51 @@ $( document ).ready(function() {
                 // 콜백 함수의 첫 번째 인자는 배열의 인덱스 번호, 두 번째 인자는 해당 위치의 값을 의미함
                 // getBoard.php의 sql문이 저장된 response['result_data'] 배열에 키, 값을 통해 레코드를 가져옴
                 $.each(response['result_data'], function (key, val) {
+                    let boardType = 0;
+
+                    // type 컬럼의 값에따라 문자열 출력
+                    switch (val.type) {
+                        case -2:
+                            boardType = "삭제됨";
+                            break;
+                        case -1:
+                            boardType = "삭제됨";
+                            break;
+                        case 0:
+                            boardType = "공개됨";
+                            break;
+                        case 1:
+                            boardType = "비밀글";
+                            break;
+                    }
+
                     // 세션에 등록된 관리자급 권한이면 출력
                     if ((sessionPermission.value === "매니저") || (sessionPermission.value === "관리자")) {
                         // 게시판 글 클릭시 boardView.php에게 get 방식으로 게시판 글 번호 전달
                         tag += "<tr onclick='viewPage(" + val.b_code + "," + val.viewcount + ")'>";
                         // 배열의 값을 추출하여 <td>태그 내부에 적용
                         tag += "<td>" + tableNum + "</td>";
-                        tag += "<td>" + val.title + "</td>";
+                        if (boardType === "삭제됨") {
+                            tag += "<td>삭제된 게시글 입니다</td>";
+                        } else {
+                            tag += "<td>" + val.title + "</td>";
+                        }
                         tag += "<td>" + val.nickname + "</td>";
-                        tag += "<td class='writeDate'>" + val.date + "</td>";
-                        tag += "<td class='viewCount'>" + val.viewcount + "</td>";
-                        tag += "<td class='type'>" + val.type + "</td>";
+                        tag += "<td class='status'>" + val.date + "</td>";
+                        tag += "<td class='status'>" + val.viewcount + "</td>";
+                        tag += "<td class='status'>" + boardType + "</td>";
+                        tag += "<td class='status'>" + val.comments + "</td>";
                         tag += "</tr>"
+                    // 사용자 등급이면
                     } else {
-                        // 사용자 등급이면 숨겨진글 표시 안함
-                        if (val.type === "display") {
+                        // type 컬럼의 값이 0 (공개됨)이면 아래 출력
+                        if (val.type === 0) {
                             tag += "<tr onclick='viewPage(" + val.b_code + "," + val.viewcount + ")'>"
                             tag += "<td>" + tableNum + "</td>";
                             tag += "<td>" + val.title + "</td>";
                             tag += "<td>" + val.nickname + "</td>";
-                            tag += "<td class='writeDate'>" + val.date + "</td>";
-                            tag += "<td class='viewCount'>" + val.viewcount + "</td>";
+                            tag += "<td class='status'>" + val.date + "</td>";
+                            tag += "<td class='status'>" + val.viewcount + "</td>";
                             tag += "</tr>"
                         }
                     }

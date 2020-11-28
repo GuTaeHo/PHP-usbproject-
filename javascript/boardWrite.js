@@ -68,7 +68,6 @@ function boardCheckInput() {
         processData: false,
         // content-type 헤더가 multipart/form-data로 전송되게 함
         contentType: false,
-
         dataType: "json",
         cache: false,
         error: function () {
@@ -79,27 +78,19 @@ function boardCheckInput() {
             // getBoard.php에서 db에 정상적으로 입/출력이 완료되었다면
             // result['error'] 배열에 false의 값이 저장되어 있음
             // 즉 else 문을 실행하여 each() 메소드 실행
-            if (response['error']) {
-                alert("ajax 연결 성공, db 연결 실패");
-            } else {
-                // 파일업로드에 실패 했다면
-                if (response['file_Upload_Error']) {
-                    alert('파일 업로드 실패...');
-                    // 이전 화면으로
-                    // history.back();
-                } else {
-                    alert('파일 업로드 성공!');
-                }
-                console.log(response);
-            }
 
+            if (response['error']) {
+                alert(response['msg']);
+            } else {
+                alert("게시글이 등록되었습니다.");
+                history.back();
+            }
         },
         complete: function () {
             // 댓글 작성란 입력값 초기화
-            title.value = "";
-            boardContent.value = "";
+            // title.value = "";
+            // boardContent.value = "";
             // 게시판 으로
-            history.back();
         }
     }); // end ajax
 }

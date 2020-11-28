@@ -4,7 +4,7 @@ require_once "../app.php";
 /**
  * 본 파일은 boardView.php 의 신고 버튼이 눌리면 호출 되며,
  * comment 테이블의 caution(경고)을 증가 (UPDATE 문) 역할 및
- * 일정 횟수가 넘어가면 댓글을 삭제(DELETE 문)하는 기능을 함
+ * 일정 횟수가 넘어가면 댓글을 삭제(UPDATE 문)하는 기능을 함
  */
 
 // 강제적으로 캐시 무효화(서버와 클라이언트간의 동적인 html 생성을 위해)
@@ -38,13 +38,19 @@ if ($caution < 5 ) {
     // UPDATE TABLE SET caution = $caution WHERE c_code = $commentCode AND b_code = $boardCode;
 
 // 경고가 5회 이상일 때
+// type컬럼의 값을 -2(숨김)로 업데이트
 } else {
+    $cautionData = array(
+        'caution' => $caution,
+        'type' => -2,
+        );
+
     $db->where('c_code', $commentCode);
     $db->where('b_code', $boardCode);
 
-    $db->delete('comment');
+    $db->update('comment', $cautionData);
     // 위의 코드를 sql로 변환하면 다음과 같음
-    // DELETE FROM comment WHERE c_code = $commentCode AND b_code = $boardCode;
+    // UPDATE FROM comment WHERE c_code = $commentCode AND b_code = $boardCode;
 }
 
 $result['result_data'] = $dbResult;

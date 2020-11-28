@@ -49,8 +49,6 @@ session_start();
                         <a class="dropdown-item" href="./?target=memberModify">회원 정보 수정</a>
                         <a class="dropdown-item" href="./?target=logout">로그아웃</a>
                         <?php } ?>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="./?target=etc">기타</a>
                     </div>
                 </li>
             </ul>

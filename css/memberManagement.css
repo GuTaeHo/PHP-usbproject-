@@ -10,7 +10,7 @@ h3 {
     font-weight: bold;
     font-size: 30px;
     box-shadow: 5px 5px 20px #A4A4A4;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-bottom: 2rem;
     text-align: center;
 }
@@ -28,7 +28,7 @@ h3 {
     padding: 10px 15px 10px 15px;
     color: #4d4d4d;
     border-radius: 15px;
-    box-shadow: 3px 3px 10px #A4A4A4;
+    box-shadow: 3px 3px 20px #B6B6B6;
     transition: 300ms;
     cursor: pointer;
     z-index: 9999;
@@ -58,8 +58,8 @@ h3 {
     background: #ffffff;
     padding: 10px;
     color: #4d4d4d;
-    border-radius: 15px;
-    box-shadow: 3px 3px 10px #A4A4A4;
+    border-radius: 10px;
+    box-shadow: 3px 3px 20px #B6B6B6;
     transition: 300ms;
     cursor: pointer;
     z-index: 9999;
@@ -79,7 +79,7 @@ h3 {
     margin: 5%;
 }
 
-/* 회원 정보 컨테이너 */
+/* 회원 수정 컨테이너 */
 .memberContainer {
     margin: 6rem auto 6rem;
     padding: 1.5rem;
@@ -88,7 +88,47 @@ h3 {
     box-shadow: 5px 5px 30px #bfbfbf;
 }
 
-/* 게시글 컨테이너 */
+/* 권한 버튼 */
+.boardPermissionButton {
+    border-radius: 5px;
+    border: none;
+    background: #f1f1f1;
+    box-shadow: 3px 3px 4px #E4E4E4;
+    padding: 5px 10px;
+    transition: 200ms;
+}
+
+
+.boardPermissionButton:hover {
+    background: #A4A4A4;
+    box-shadow: none;
+}
+
+.card-body h4{
+    text-align: center;
+}
+
+/* 모달 권한 출력 */
+.permissionButton {
+    border-radius: 5px;
+    border: none;
+    background: #f1f1f1;
+    box-shadow: 3px 3px 4px #A4A4A4;
+    padding: 5px 20px;
+    transition: 200ms;
+}
+
+.permissionButton:hover {
+    background: #A4A4A4;
+    box-shadow: none;
+}
+
+.permissionContainer {
+    margin: 20px;
+}
+
+
+/* 게시판 수정 컨테이너 */
 .boardContainer {
     margin: 6rem auto 6rem;
     padding: 1.5rem;
@@ -97,7 +137,7 @@ h3 {
     box-shadow: 5px 5px 30px #bfbfbf;
 }
 
-/* 댓글 컨테이너 */
+/* 댓글 수정 컨테이너 */
 .commentContainer {
     margin: 6rem auto 6rem;
     padding: 1.5rem;
@@ -109,12 +149,14 @@ h3 {
 tbody tr {
     background: white;
     transition: 200ms;
-    cursor: pointer;
 }
 
+
 /* 게시판 레코드 호버시 배경 변경*/
+/*
 tbody tr:hover {
     transform: scale(1.05, 1.05);
     background: #f1f1f1;
     border-radius: 20px;
 }
+*/

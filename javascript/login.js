@@ -25,7 +25,39 @@ function loginCheckInput() {
         passwd.focus();
         return
     }
-    document.loginForm.submit();
+    // document.loginForm.submit();
+
+    $.ajax({
+        url : "./controller/getLogin.php",
+        data : $("#loginForm").serialize(),
+        type : "POST",
+        dataType: "json",
+        // 갱신된 데이터를 받아올 수 있도록 캐싱 false
+        cache: false,
+        error: function() {
+            console.log('connection error..');
+        },
+
+        success: function(response) {
+            console.log(response['captcha_error']);
+            console.log(response['error']);
+            // 관리자에 의해 삭제가 되지 않았다면
+            if (response['deleted_user'] !== true) {
+                if (response['error']) {
+                    alert('로그인 완료');
+                    // 메인 페이지로
+                    location.href = '../index.php';
+                } else {
+                    alert('아이디 또는 패스워드가 다릅니다!!!');
+                    location.href = '../index.php?target=login';
+                }
+            // 삭제되었다면
+            } else {
+                alert('관리자에 의해 삭제된 회원입니다.');
+                location.href = '../index.php?target=login';
+            }
+        },
+    }); // end ajax
 }
 
 // 취소 버튼이 눌렸때 호출

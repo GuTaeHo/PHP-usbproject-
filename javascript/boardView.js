@@ -7,20 +7,45 @@ String.prototype.replaceAll = function(org, dest) {
     return this.split(org).join(dest);
 }
 
+// 댓글 허용 문자열을 저장하는 변수
+
+
 $( document ).ready(function() {
-
+    let commentAllow = "";
     // 게시글을 가져오는 함수
-    getBoardNum();
-    
-    // 댓글을 가져오는 함수
-    getBoardComment();
+    commentAllow = getBoardNum();
+    // comments 컬럼의 값이 allow면 댓글 가져옴
+    if (commentAllow === "allow") {
+        // 댓글을 가져오는 함수
+        getBoardComment();
+        // comments 컬럼의 값이 deny라면
+    } else {
+        // class 하위에 태그 찾기
+        let commentContainer = document.getElementById('commentContainer');
+        let hiddenContents = document.getElementsByClassName('hiddenContents');
+        let writeButton = document.getElementsByClassName('writeButton');
 
+        for (let i = 0; i < commentContainer.length; i += 1){
+            commentContainer[i].style.background='#ffffff';
+        }
+
+        for (let i = 0; i < hiddenContents.length; i += 1){
+            hiddenContents[i].style.display='block';
+            hiddenContents[i].style.fontSize='24px';
+        }
+
+        for (let i = 0; i < writeButton.length; i += 1) {
+            writeButton[i].style.display='none';
+        }
+    }
 });
 
 // 게시글을 가져오는 함수
 function getBoardNum(){
     // 쿼리스트링 가져옴
     urlParams = getUrlParams();
+
+    let saveCommentAllow = "";
 
     // 비동기 게시글 정보 출력
     $.ajax({
@@ -29,6 +54,8 @@ function getBoardNum(){
         // get 방식으로 urlParams에 boardCode와 viewCount의 키, 값을 getboardNum.php에 넘겨줌
         data : { "boardCode": urlParams.boardCode, "viewCount" : urlParams.viewCount},
         dataType: "json",
+        // return 시 값을 받기위해 success후 동기 방식으로 전환
+        async: false,
         cache: false,
         error: function () {
             console.log('connection error..');
@@ -40,36 +67,41 @@ function getBoardNum(){
             // html 태그들이 들어갈 tag 변수 초기화
             var div = "";
 
+            // db의 comments컬럼의 값을 변수에 저장
+
             // getBoard.php에서 db에 정상적으로 입/출력이 완료되었다면
             // result['error'] 배열에 false의 값이 저장되어 있음
             // 즉 else 문을 실행하여 each() 메소드 실행
             if (response['error']) {
                 alert(response['msg']);
-
             } else {
                 // each() 메서드는 첫 번째 인자로 배열이나 유사 배열형식인 객체를 받음, 두 번째 인자로 콜백 함수를 받으며
                 // 콜백 함수의 첫 번째 인자는 배열의 인덱스 번호, 두 번째 인자는 해당 위치의 값을 의미함
                 // getBoard.php의 sql문이 저장된 response['result_data'] 배열에 키, 값을 통해 레코드를 가져옴
-                $.each(response['result_data'], function (key, val) {
-                    // 게시글 내용 변수에 저장
-                    let textBox = val.textbox;
-                    // 내용의 \n기호를 html 줄바꿈 기호로 치환
-                    textBox = textBox.replaceAll("\n", "<br>");
+                // 게시글 내용 변수에 저장
+                let textBox = response['result_data']['textbox'];
+                // 내용의 \n기호를 html 줄바꿈 기호로 치환
+                textBox = textBox.replaceAll("\n", "<br>");
 
-                    div += "<div>" + val.title + "</div>"
-                    div += "<div>" + val.date + "</div>"
-                    div += "<div>" + val.nickname + "</div>"
-                    div += "<div>조회수 " + val.viewcount + "</div>"
-                    div += "<div>" + textBox + "</div>"
-                });
+                div += "<div>" + response['result_data']['title'] + "</div>"
+                div += "<div>" + response['result_data']['date'] + "</div>"
+                div += "<div>" + response['result_data']['nickname'] + "</div>"
+                div += "<div>조회수 " + response['result_data']['viewcount'] + "</div>"
+                if (response['result_data']['file_name']) {
+                    div += "<div class='fileImage'><img src='../resource/postboard/" + response['result_data']['file_name'] + "'/></div>"
+                }
+                div += "<div>" + textBox + "</div>"
+
+                saveCommentAllow = response['result_data']['comments'];
             }
-
             $('.reFresh').html(div);
         },
         complete: function () {
-
         }
     }); // end ajax
+
+    // 댓글 허용 정보 반환
+    return saveCommentAllow;
 }
 
 // 댓글을 가져오는 함수
@@ -117,19 +149,21 @@ function getBoardComment() {
                     // 배열에 첫 번째 댓글의 고유 번호와 경고 수를 순차적으로 저장
                     commentCode[i] = val.c_code;
                     cautionNum[i] = val.caution;
-                    div += "<div class='subCommentContainer'>"
-                    div += "<div>" + val.nickname + "</div>"
-                    div += "<div>" + val.date + "</div>"
-                    div += '<?php if($_SESSION["userId"]) { ?>'
-                    div +=  "<div class='cautionContainer'>" +
-                        val.caution +"&nbsp<img src='../resource/warning.png' class='cautionImage' onclick='cationClicked(" + i + "," + commentCode[i] + ", " + cautionNum[i] + ")'/>" +
-                        "</div>"
-                    div += '<?php } else {?>'
-                    div += "<div></div>"
-                    div += '<?php } ?>'
-                    div += "<div>" + val.comment + "</div>"
-                    div += "</div>"
-                    ++i;
+                    if (val.type !== -2) {
+                        div += "<div class='subCommentContainer'>"
+                        div += "<div>" + val.nickname + "</div>"
+                        div += "<div>" + val.date + "</div>"
+                        div += '<?php if($_SESSION["userId"]) { ?>'
+                        div += "<div class='cautionContainer'>" +
+                            val.caution + "&nbsp<img src='../resource/warning.png' class='cautionImage' onclick='cationClicked(" + i + "," + commentCode[i] + ", " + cautionNum[i] + ")'/>" +
+                            "</div>"
+                        div += '<?php } else {?>'
+                        div += "<div></div>"
+                        div += '<?php } ?>'
+                        div += "<div>" + val.comment + "</div>"
+                        div += "</div>"
+                        ++i;
+                    }
                 });
             }
 
@@ -137,7 +171,7 @@ function getBoardComment() {
         },
         complete: function () {
             // id가 commentNode인 자식의 개수 콘솔에 출력
-            console.log(reFreshCommentNode.childElementCount);
+            // console.log(reFreshCommentNode.childElementCount);
             // 자식이 아무도 없다면
             if (reFreshCommentNode.childElementCount === 0) {
                 reFreshCommentNode.style.background='#f2f2f2';
@@ -245,7 +279,7 @@ function commentFormSubmit() {
                 alert(response['msg']);
 
             } else {
-                console.log(response['result_data']);
+                // console.log(response['result_data']);
             }
 
         },

@@ -21,10 +21,10 @@ $db->orderBy('b.date', "DESC");
 // LEFT JOIN member m ON m.m_code=b.m_code
 $db->join("member m", "m.m_code=b.m_code", "LEFT");
 //
-$board = $db->get('board b', null, 'm.nickname, b.b_code, b.title, b.date, b.viewcount, b.textbox, b.type');
+$board = $db->get('board b', null, 'm.nickname, b.b_code, b.title, b.date, b.viewcount, b.textbox, b.type, b.comments');
 
 // 위의 코드를 sql으로 변환하면 다음과 같음. get()은 select 문을, join()은 join문의, orderBy()는 정렬(ORDER BY)에 관련된 기능을 가짐
-// SELECT m.nickname, b.b_code, b.title, b.date, b.viewcount, b.textbox, b.type FROM board b LEFT JOIN member m ON m.m_code=b.m_code ORDER BY b.date DESC;
+// SELECT m.nickname, b.b_code, b.title, b.date, b.viewcount, b.textbox, b.type ,b.comments FROM board b LEFT JOIN member m ON m.m_code=b.m_code ORDER BY b.date DESC;
 $boardCount = $db->count;
 
 // 반환된 레코드를 result 배열에 저장

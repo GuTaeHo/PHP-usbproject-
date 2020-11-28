@@ -68,18 +68,8 @@ form {
         box-shadow: 5px 5px 5px #e6e6e6;
     }
 
-    /* 작성일 숨기기 */
-    .writeDate {
-        display: none;
-    }
-
-    /* 조회수 숨기기 */
-    .viewCount {
-        display: none;
-    }
-
-    /* 공개여부 숨기기 */
-    .type {
+    /* 일반 사용자는 컬럼 숨김 */
+    .status {
         display: none;
     }
 

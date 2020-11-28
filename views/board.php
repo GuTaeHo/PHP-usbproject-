@@ -9,11 +9,12 @@
             <th>번호</th>
             <th>제목</th>
             <th>작성자</th>
-            <th class="writeDate">작성일</th>
-            <th class="viewCount">조회수</th>
+            <th class="status">작성일</th>
+            <th class="status">조회수</th>
             <!-- 사용자 권한에 따라 컬럼 추가-->
             <?php if ($_SESSION['userPermission'] == "관리자" || $_SESSION['userPermission'] == "매니저") {?>
-            <th class="type">공개여부</th>
+            <th class="status">공개여부</th>
+            <th class="status">댓글허용</th>
             <?php }?>
         </tr>
         </thead>

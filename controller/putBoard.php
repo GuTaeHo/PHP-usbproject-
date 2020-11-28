@@ -14,7 +14,40 @@ header('Expires: '.gmdate('D, d M Y H:i:s', time()).' GMT');
 // json 형태, 문자열을 utf-8로 변경
 header('Content-type: application/json; charset=utf-8');
 
-session_start();
+// 문자열 랜덤 생성 함수 ($length변수의 값만큼 랜덤한 문자열 생성)
+function generateRandomString($length = 7){
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[mt_rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+// 파일 이름을 랜덤으로 생성해서 DB에 있는지 확인 한 후에 중복된 값이 존재 하면
+// 다시 재생성 해주는 함수
+function getFileName($ext, $db) {
+    do {
+        $randomStringResult = generateRandomString();
+
+        // 현재 시간을 변수에 저장 ex : 20201122014722
+        $currentDate = date("YmdHis");
+        // 날짜 + 랜덤 문자열 + 확장자로 새로운 파일명 생성 ex : 7bA92FW
+        $serverUploadFile = $currentDate . "_" . $randomStringResult . "." . $ext;
+
+        // db에 중복되는 값이 있는지 확인
+        $db->where('file_name', $serverUploadFile);
+        $db->get('board');
+
+        // 조회된 레코드의 갯수 가져오기
+        $count = $db->count;
+    // DB에 중복되는 값이 있다면 재생성
+    } while ($count != 0);
+
+    return $serverUploadFile;
+}
 
 // 제목, 비공개, 댓글허용, 내용
 // $author = $_POST["author"];
@@ -26,16 +59,6 @@ $boardContent = $_POST["boardContent"];
 // 로그인 한 유저의 멤버코드 가져옴
 $memberCode = $_SESSION["userCode"];
 
-// 비공개가 체크되지 않았다면
-if (empty($type)) {
-    $type = "display";
-}
-
-// 댓글 허용이 체크되지 않았다면
-if (empty($comments)) {
-    $comments = "deny";
-}
-
 // --------------------- 파일 업로드 --------------------------
 
 // 파일관련 정보 추출
@@ -45,44 +68,6 @@ $fileType = $_FILES["uploadFile"]["type"];
 $fileSize = $_FILES["uploadFile"]["size"];
 $fileError  = $_FILES["uploadFile"]["error"];
 
-// 업로드 경로 저장
-$fileUploadDir = "../usb_project/resource/postboard/";
-
-// 제목과 내용의 쿼티션 기호를 일반 문자로 인식되도록 치환
-$title = htmlspecialchars($title, ENT_QUOTES);
-$boardContent = htmlspecialchars($boardContent, ENT_QUOTES);
-
-// 파일 업로드 이상 유무 체크
-if ($fileName && !$fileError) {
-    // .(점)을 기준으로 문자열 분리
-    $file = explode(".", $fileName);
-    // 분리된 파일이름 저장
-    $expFileName = $file[0];
-    // 현재 날짜로 만들어진 새로운 파일명에 확장자로 사용될 변수 $fileExt에 확장자 저장
-    $expFileExt = $file[1];
-
-    // 현재 시간을 파일의 이름으로 저장 (ex : 2020-11-22 01:47:22)
-    $newFileName = date("Y-m-d H:i:s");
-    // 위의 새이름과 분리된 확장자를 합침
-    $fakeFileName = $newFileName.".".$expFileExt;
-    // 서버의 지정된 위치에 파일을 저장하기 위해 경로와 파일명을 합침
-    $serverUploadFile = $fileUploadDir.$fakeFileName;
-    
-    // 서버에 파일을 올리는 move_uploaded_file() 함수를 실행
-    if (!move_uploaded_file($fileTempName, $serverUploadFile)) {
-        // 파일올리기에 실패했다면
-        $result['file_Upload_Error'] = true;
-    }
-}
-
-else {
-    // 업로드를 실패했다면 파일 이름이 저장된 변수 초기화
-    $fileName = "";
-    $fileType = "";
-    $fakeFileName = "";
-    $result['file_Upload_Error'] = false;
-}
-
 // --------------------- DataBase INSERT --------------------------
 
 $data = Array (
@@ -90,22 +75,82 @@ $data = Array (
     'm_code' => $memberCode,
     'textbox' => $boardContent,
     'date' => $db->now(),
-    'type' => $type,
-    'comments' => $comments,
-    // 원본 파일명
-    'file_name' => $fileName,
-    // 파일 확장자
-    'file_type' => $fileType,
-    // 조합된 파일명
-    'file_copied' => $fakeFileName,
 );
 
-$queryResult = $db->insert('board', $data);
+// 댓글 허용 여부 설정
+$data['comments'] = isset($comments) ? "allow" : "deny";
 
-$result['result_data'] = $queryResult;
-$result["error"] = false;
+// 비공개 글 설정
+$data['type'] = isset($type) ? 1 : 0;
+
+// 파일이 존재할 경우 아래 로직 실행
+if ($fileSize > 0) {
+    // 파일에 오류가 있을 경우 로직 종료
+    if ($fileError) {
+        $result['error'] = true;
+        $result['msg'] = "파일 업로드 에러 에러코드 : ".$fileError;
+        echo json_encode($result);
+        exit;
+    }
+
+    // 파일 확장자 가져오기
+    $ext = substr($fileName, strrpos($fileName, '.') + 1);
+    $allowExtension = array('bmp', 'jpg', 'gif', 'png', 'jpeg');
+
+    // 업로드 된 파일의 확장자가 $allowExtension의 배열의 값과 일치하지 않는다면 로직 종료
+    if(!in_array($ext, $allowExtension)) {
+        $result['error'] = true;
+        $result['msg'] = "그림파일만 업로드 가능합니다.";
+        echo json_encode($result);
+        exit;
+    }
+
+//     파일 업로드
+//    $upload_directory = _DS_."wwwfile"._DS_."usbProject"._DS_."postboard";
+    $upload_directory = "../resource/postboard/";
+
+    // 해당 경로가 유효한지(존재 하는지) 검사
+    if (!is_dir($upload_directory)) {
+        $result['error'] = true;
+        $result['msg'] = "파일 업로드 경로가 유효하지 않습니다.";
+        echo json_encode($result);
+        exit;
+    }
+
+    // 해당 경로에 파일 쓰기가 가능한지 검사
+    if (!is_writable($upload_directory)) {
+        $result['error'] = true;
+        $result['msg'] = "파일 업로드 경로에 쓰기 권한이 유효하지 않습니다.";
+        echo json_encode($result);
+        exit;
+    }
+
+    // 파일 이름 생성
+    $serverUploadFile = getFileName($ext, $db);
+    // 최종 업로드 경로&파일이름
+    $fullPath = $upload_directory . $serverUploadFile;
+
+    // 파일 업로드 로직
+    if (move_uploaded_file($fileTempName, $fullPath)) {
+        $data['file_type'] = $fileType;
+        $data['file_name'] = $serverUploadFile;
+    } else {
+        $result['error'] = true;
+        $result['msg'] = "파일이 업로드 되지 않았습니다.";
+        echo json_decode($result);
+        exit;
+    }
+}
+
+// DB에 정보 insert
+if ($queryResult = $db->insert('board', $data)) {
+    $result['result_data'] = $queryResult;
+} else {
+    $result['msg'] = "게시글 쓰기에 실패하였습니다.\n\n".$db->getLastError();
+    $result["error"] = true;
+}
+
+$result['msg'] = "success";
+$result['error'] = false;
 
 echo json_encode($result);
-
-
-

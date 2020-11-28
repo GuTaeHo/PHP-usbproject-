@@ -2,7 +2,7 @@
 <script src='https://www.google.com/recaptcha/api.js?render=6Lfe0eUZAAAAAIOuKccP5Osv1UjoUmWEULFXpLTC'></script>
 
 <!-- 로그인 성공시 게시판으로 이동 -->
-<form name="loginForm" action="../controller/getLogin.php" method="post">
+<form id = "loginForm" name="loginForm">
     <div id="top-contents">
         <div class="form-group">
             <label for="exampleInputEmail1">아이디</label>

@@ -36,6 +36,8 @@ $data = Array (
 );
 
 $response = $db->insert('comment', $data);
+// 위의 코드를 변환하면 다음과 같음
+// INSERT INTO comment (m_code, b_code, comment, date) VALUES ($userCode, $boardCode, $comment, $db->now());
 
 // 반환된 레코드를 result 배열에 저장
 $result['result_data'] = $response;

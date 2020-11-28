@@ -15,11 +15,13 @@ header('Content-type: application/json; charset=utf-8');
 
 // b_code(게시글 번호)를 기준으로 정렬
 $db->orderBy('b_code');
+
+$db->where('type', 0);
 // comment 테이블의 모든 컬럼을 들고옴
 $AllComments = $db->get('comment');
 
 // 위의 코드를 sql으로 변환하면 다음과 같음 (ORDER BY 절의 Default값은 오름차순임)
-// SELECT * FROM comment ORDER BY b_code (asc);
+// SELECT * FROM comment WHERE type = 0 ORDER BY b_code (asc);
 
 // 검색된 레코드의 수를 변수에 저장
 $countAllComments = $db->count;
