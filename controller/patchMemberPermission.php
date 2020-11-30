@@ -28,7 +28,6 @@ $data = Array (
 $db->where('m_code', $memberCode);
 $db->update('member', $data);
 
-
 // error가 없음을 배열에 저장
 $result['error'] = false;
 

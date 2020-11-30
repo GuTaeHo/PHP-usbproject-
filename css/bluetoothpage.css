@@ -1,8 +1,88 @@
 body {
-    margin-top: 74px;
+    height: 100%;
 }
 
-/* 모바일 기기 css 지정*/
-@media screen and (max-width: 768px) {
+img {
+    max-width: 100%;
+    border-radius: 5px;
+}
 
+.subTitleImage img {
+    max-width: 75%;
+}
+
+p {
+    border-radius: 5px;
+    background: rgba(122, 122, 122, 0.1);
+    margin: 10px 10px 0px 10px;
+}
+
+.container {
+    padding: 6rem;
+    background: #ffffff;
+    box-shadow: 5px 5px 50px #b3b3b3;
+}
+
+.bg-text {
+    text-align: center;
+}
+
+h1 {
+    box-shadow: 5px 5px 10px #D8D8D8;
+    border-radius: 10px;
+    padding: 10px;
+    background: #ccccff;
+    color: white;
+    text-shadow: 1px 1px 3px #424242;
+}
+
+.col-12 {
+    padding: 10px;
+}
+
+/* 텍스트 내용이 들어간 박스 */
+.lineBox {
+    max-height: 300px;
+    padding: 15px;
+    margin: 10px 0px;
+    background: #ffffff;
+    border: 2px solid #D8D8D8;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: 300ms ease-out;  /* 0.5초간 진행*/
+}
+
+/* 텍스트 내용이 들어간 제목 박스*/
+.lineTitleBox {
+    background: #454B50;
+    color : #f1f1f1;
+}
+
+.lineBox:hover {
+    overflow: hidden;
+    cursor : pointer;
+    border-radius: 10px;
+    position: relative;     /* z-index 속성을 사용하기 위해서 relative로 설정*/
+    z-index: 2;
+    transform: scale(1.1, 1.1);     /* 가로 세로 1.1배*/
+    background: #FFFFFF;
+    box-shadow: 3px 3px 10px #BDBDBD;
+    /*animation: boxHover 300ms ease forwards alternate;*/
+}
+
+.lineTitleBox:hover {
+    background: #454B50;
+    color : #f1f1f1;
+}
+
+.usbVersionChart1 {
+    max-height: 100%;
+}
+
+/* 스마트폰 css 지정*/
+@media screen and (max-width: 768px) {
+    .container {
+        margin-top: 4rem;
+        padding: 5%;
+    }
 }

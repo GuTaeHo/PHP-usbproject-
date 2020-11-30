@@ -60,7 +60,6 @@ function boardCheckInput() {
         url: "./controller/putBoard.php",
         type : "POST",
         // form태그의 모든 값들을 POST형식으로 보냄
-        // $('#boardWriteForm').serialize(),
         data : formData,
         // input file타입의 데이터를 보내기 위해 설정
         enctype: 'multipart/form-data',

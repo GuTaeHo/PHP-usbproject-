@@ -14,15 +14,7 @@ header('Expires: '.gmdate('D, d M Y H:i:s', time()).' GMT');
 header('Content-type: application/json; charset=utf-8');
 
 // POST 형식으로 전달된 값을 변수에 저장
-$memberID = $_POST["member"];
-
-// SELECT * FROM member WHERE id = $memberID
-$db->where('id', $memberID);
-$member = $db->get('member');
-
-// id를 통해서 찾은 회원 고유 번호를 통해 comment -> board -> member 순으로 관련된 레코드 삭제(변경)
-$memberCode = $member[0]['m_code'];
-
+$memberCode = $_POST["memberCode"];
 
 // type 컬럼의 -2는 관리자가 삭제했다는 의미를 가짐
 $commentType = -2;
@@ -33,20 +25,37 @@ $data = Array (
     'type' => $commentType
 );
 
+$db->startTransaction();
+
 // UPDATE FROM comment WHERE m_code = $memberCode;
 $db->where('m_code', $memberCode);
-$db->update('comment', $data);
+if(!$db->update('comment', $data)) {
+    $result['error'] = true;
+    $result['msg'] = "댓글 삭제에 실패했습니다.";
+    echo json_encode($result);
+    exit;
+}
 
 
 // UPDATE FROM board WHERE m_code = $memberCode;
 $db->where('m_code', $memberCode);
-$db->update('board', $data);
-
+if(!$db->update('board', $data)) {
+    $result['error'] = true;
+    $result['msg'] = "게시판 삭제에 실패했습니다.";
+    echo json_encode($result);
+    exit;
+}
 
 // UPDATE FROM member WHERE m_code = $memberCode;
 $db->where('m_code', $memberCode);
-$db->update('member', $data);
+if(!$db->update('member', $data)) {
+    $result['error'] = true;
+    $result['msg'] = "회원 삭제에 실패했습니다.";
+    echo json_encode($result);
+    exit;
+}
 
+$db->commit();
 
 // error가 없음을 배열에 저장
 $result['error'] = false;

@@ -3,7 +3,7 @@ body {
 }
 
 img {
-    max-width: 100%;
+    max-width: 90%;
     border-radius: 5px;
 }
 
@@ -31,8 +31,8 @@ h1 {
     box-shadow: 5px 5px 10px #D8D8D8;
     border-radius: 10px;
     padding: 10px;
-    background: #A4A4A4;
-    color: white;
+    background: #343A40;
+    color: #E4E4E4;
     text-shadow: 1px 1px 3px #424242;
 }
 
@@ -77,6 +77,11 @@ h1 {
 
 .usbVersionChart1 {
     max-height: 100%;
+}
+
+/* 마지막 서브 컨테이너 */
+.final-container {
+    margin-top: -20px;
 }
 
 /* 스마트폰 css 지정*/

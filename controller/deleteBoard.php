@@ -36,8 +36,7 @@ $db->update('board', $data);
 $db->where('b_code', $boardID);
 
 if ($db->update('comment', $data)) {
-    // 트랙잭션은 commit()을 통해서 sql을 처리할지를 결정한다
-    // commit()을 만나지 않았다면 트랜잭션을
+    // 트랜잭션은 commit() 을 만나지 않는다면 sql을 실행하지 않음
     $db->commit();
 
     // error가 없음을 배열에 저장

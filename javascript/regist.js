@@ -33,7 +33,6 @@ window.onload = function() {
                     url: "./controller/getId.php",
                     type: "GET",
                     // 객체에 id.value의 값을 실어 날림
-                    // data : $('#regist_form').serialize()
                     data : {id : id.value},
                     // 받는 형식은 json 형식
                     dataType: "json",

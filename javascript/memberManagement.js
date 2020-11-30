@@ -65,7 +65,7 @@ function getMemberResult() {
                         tag += "<td>" + val.email + "</td>";
                         tag += "<td>" + val.date + "</td>";
                         tag += "<td>" + val.type + "</td>";
-                        tag += "<td><input type='button' value='삭제' onclick=\"deleteMember('" + val.id + "')\"/></td>";
+                        tag += "<td><input type='button' value='삭제' onclick=\"deleteMember('" + val.m_code + "')\"/></td>";
                         tag += "</tr>"
                     }
                 });
@@ -161,7 +161,7 @@ function getBoardResult() {
                         tag += "<td class='writeDate'>" + val.date + "</td>";
                         tag += "<td class='viewCount'>" + val.viewcount + "</td>";
                         tag += "<td class='type'>" + hiddenType + "</td>";
-                        tag += "<td><input type='button' value='삭제' onclick=\"deleteBoard('" + val.b_code + "')\"/></td>";
+                        tag += "<td><input class='allDeleteButtonStyle' type='button' value='삭제' onclick=\"deleteBoard('" + val.b_code + "')\"/></td>";
                         tag += "</tr>"
                     }
                 });
@@ -209,7 +209,7 @@ function getCommentResult() {
                     // 배열의 값을 추출하여 <td>태그 내부에 적용
                     tag += "<td>" + val.b_code + "</td>";
                     tag += "<td>" + val.m_code + "</td>";
-                    tag += "<td>" + val.comment + "</td>";
+                    tag += "<td class='commentContents'>" + val.comment + "</td>";
                     tag += "<td>" + val.date + "</td>";
                     tag += "<td>" + val.caution + "</td>";
                     tag += "<td><input type='button' value='삭제' onclick=\"deleteComment('" + val.c_code + "')\"/></td>";
@@ -228,7 +228,7 @@ function deleteMember(member) {
         $.ajax({
             url : "./controller/deleteMember.php",
             type : "POST",
-            data: {"member" : member},
+            data: {"memberCode" : member},
             dataType: "json",
             // 갱신된 데이터를 받아올 수 있도록 캐싱 false
             cache: false,
@@ -238,10 +238,8 @@ function deleteMember(member) {
 
             success: function(response) {
                 if (response['error']) {
-                    alert('DB 연결에 문제가 생겼습니다...');
+                    alert(response['msg']);
                 } else {
-                    // alert(response['memberCode'][0]['m_code']);
-                    // console.log(response['memberCode'][0]['m_code']);
                     console.log(response);
                 }
             },
@@ -280,12 +278,14 @@ function deleteBoard(board) {
             complete: function() {
                 // 게시글 새로고침
                 getBoardResult();
+                // 댓글 새로고침
+                getCommentResult();
             }
         }); // end ajax
     }
 }
 
-// 게시글 삭제 함수
+// 댓글 삭제 함수
 function deleteComment(comment) {
 
     if (confirm("정말 삭제하시겠습니까?")){
@@ -294,7 +294,6 @@ function deleteComment(comment) {
             type : "POST",
             data: {"comment" : comment},
             dataType: "json",
-            // 갱신된 데이터를 받아올 수 있도록 캐싱 false
             cache: false,
             error: function () {
                 console.log('connection error..');
@@ -304,13 +303,11 @@ function deleteComment(comment) {
                 if (response['error']) {
                     alert('DB 연결에 문제가 생겼습니다...');
                 } else {
-                    // alert(response['memberCode'][0]['m_code']);
-                    // console.log(response['memberCode'][0]['m_code']);
                     console.log(response);
                 }
             },
             complete: function() {
-                // 게시글 새로고침
+                // 댓글 새로고침
                 getCommentResult();
             }
         }); // end ajax
@@ -353,7 +350,7 @@ function expandHelpBox() {
         // 스타일을 적용하기 위해서 적용할 태그의 자식 노드들 까지 반복해서 적용해 주어야 정상 동작한다.
         for (let i = 0; i < expandHelpBox.length; i += 1) {
             expandHelpBox[i].style.width = '40%';
-            expandHelpBox[i].style.height = '35%';
+            expandHelpBox[i].style.height = '40%';
             expandHelpBox[i].style.background = '#343A40';
         }
 

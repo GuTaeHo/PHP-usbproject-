@@ -29,7 +29,7 @@
 </div>
 <?php } ?>
 
-<h1 class="content-title">Main Page</h1>
+<h1 class="content-title">Main</h1>
 
 <div class="content">
     <!-- 콘텐츠 부분 -->
@@ -46,16 +46,15 @@
                     <!-- get방식으로 usbpage 정보를 전달-->
                     <a href="./?target=usbpage"><img src="./resource/usb2.jpg" class="d-block w-100" alt="..."></a>
                     <div class="carousel-caption d-none d-md-block">
-                        <h1>USB?</h1>
-                        <p>Universal Serial Bus의 준말로 범용 직렬 버스를 의미합니다.</p>
+                        <h1>USB</h1>
+                        <p>헷갈리는 USB에 대한 팁들을 알려드립니다.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <a href="./?target=bluetoothpage"><img src="./resource/bluetooth1.jpg" class="d-block w-100" alt="..."></a>
                     <div class="carousel-caption d-none d-md-block">
-                        <h1>BlueTooth?</h1>
-                        <p>근거리 무선통신기술. 여러가지 전자제품의 무선규격을 통일시키자는</p>
-                        <p>의도로 기술의 이름을 블루투스로 제정했습니다.</p>
+                        <h1>BlueTooth</h1>
+                        <p>이제는 없어서는 안될 BlueTooth에 대해서 알려드립니다.</p>
                     </div>
                 </div>
                 <div class="carousel-item">
@@ -79,25 +78,6 @@
     </div>
     <!-- 캐러셀 끝 -->
 
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">제목 영역</h1>
-            <p class="lead font-weight-normal">콘텐츠 영역</p>
-            <a class="btn btn-outline-secondary" href="#">Coming soon</a>
-        </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-    </div>
-
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 font-weight-normal">제목 영역</h1>
-            <p class="lead font-weight-normal">콘텐츠 영역</p>
-            <a class="btn btn-outline-secondary" href="#">Coming soon</a>
-        </div>
-        <div class="product-device shadow-sm d-none d-md-block"></div>
-        <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
-    </div>
 </div>
 
 

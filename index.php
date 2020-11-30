@@ -3,7 +3,7 @@
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="ko">
 <head>
     <?php
     include "head.php";

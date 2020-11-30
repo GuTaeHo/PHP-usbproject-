@@ -27,11 +27,13 @@ $data = Array (
 
 // UPDATE FROM comment WHERE c_code = $commentID;
 $db->where('c_code', $commentID);
-$db->update('comment', $data);
-
-
-// error가 없음을 배열에 저장
-$result['error'] = false;
+if ($db->update('comment', $data)) {
+    // error가 없음을 배열에 저장
+    $result['error'] = false;
+} else {
+    $result['error'] = true;
+    $result['msg'] = "댓글 삭제에 실패하였습니다.";
+}
 
 // json형식으로 인코딩하여 반환
 echo json_encode($result);

@@ -34,6 +34,11 @@ form {
     padding-top: 2rem;
 }
 
+/* 게시판 날짜 출력 td */
+.boardDate {
+    font-size: 14px;
+}
+
 /* 스마트폰 css 지정*/
 @media screen and (max-width: 768px) {
     body {

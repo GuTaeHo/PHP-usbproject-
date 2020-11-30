@@ -15,7 +15,6 @@ define('_MYSQL_PASSWORD_',  'usbproject1!');
 define('_MYSQL_DB_',        'usbproject');
 
 // 같은 파일 한번만 포함, 포함할 파일이 없다면 밑의 코드는 실행 x
-// db 라이브러리를 실행하기 전 초기화
 require_once (_CONFIG_."MysqliDb.php");
 
 // mysql 접속 객체를 생성하여 변수에 할당

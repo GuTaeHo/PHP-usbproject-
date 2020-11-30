@@ -137,7 +137,7 @@ if ($fileSize > 0) {
     } else {
         $result['error'] = true;
         $result['msg'] = "파일이 업로드 되지 않았습니다.";
-        echo json_decode($result);
+        echo json_encode($result);
         exit;
     }
 }

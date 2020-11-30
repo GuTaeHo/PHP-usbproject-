@@ -30,17 +30,17 @@ $(document).ready(function() {
                 // response배열의 0번 인덱스에 id(key)에 값(value)을 반환
                 // console.log(response[0].id);
                 div += "<div class='form-group'><label>아이디</label>" +
-                    "<input type='text' name='id' class='form-control' value='" + response[0].id + "' readonly/></div>"
+                    "<input type='text' name='id' class='form-control' value='" + response['result_data']['id'] + "' readonly/></div>"
                 div += "<div class='form-group'><label>비밀번호</label>" +
                     "<input type='password' name='passwd' class='form-control passwd' placeholder='비밀번호 변경' onkeydown='enter()'></div>"
                 div += "<div class='form-group'><label>비밀번호 확인</label>" +
                     "<input type='password' name='passwd_check' class='form-control' placeholder='비밀번호 확인' onkeydown='enter()'></div>"
                 div += "<div class='form-group'><label>닉네임</label>" +
-                    "<input type='text' name='nickname' class='form-control' placeholder='닉네임 변경' value='" + response[0].nickname + "' onkeydown='enter()'></div>"
+                    "<input type='text' name='nickname' class='form-control' placeholder='닉네임 변경' value='" + response['result_data']['nickname'] + "' onkeydown='enter()'></div>"
                 div += "<div class='form-group'><label>이름</label>" +
-                    "<input type='text' name='name' class='form-control' placeholder='이름 변경' value='" + response[0].name + "' onkeydown='enter()'></div>"
+                    "<input type='text' name='name' class='form-control' placeholder='이름 변경' value='" + response['result_data']['name'] + "' onkeydown='enter()'></div>"
                 div += "<div class='form-group'><label>이메일</label>" +
-                    "<input type='text' name='email' class='form-control' placeholder='이메일 변경' value='" + response[0].email + "' onkeydown='enter()'></div>"
+                    "<input type='text' name='email' class='form-control' placeholder='이메일 변경' value='" + response['result_data']['email'] + "' onkeydown='enter()'></div>"
             }
             // 태그 출력
             $('.reFresh').html(div);

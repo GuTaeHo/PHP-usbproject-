@@ -149,20 +149,36 @@ function getBoardComment() {
                     // 배열에 첫 번째 댓글의 고유 번호와 경고 수를 순차적으로 저장
                     commentCode[i] = val.c_code;
                     cautionNum[i] = val.caution;
-                    if (val.type !== -2) {
-                        div += "<div class='subCommentContainer'>"
-                        div += "<div>" + val.nickname + "</div>"
-                        div += "<div>" + val.date + "</div>"
-                        div += '<?php if($_SESSION["userId"]) { ?>'
-                        div += "<div class='cautionContainer'>" +
-                            val.caution + "&nbsp<img src='../resource/warning.png' class='cautionImage' onclick='cationClicked(" + i + "," + commentCode[i] + ", " + cautionNum[i] + ")'/>" +
-                            "</div>"
-                        div += '<?php } else {?>'
-                        div += "<div></div>"
-                        div += '<?php } ?>'
-                        div += "<div>" + val.comment + "</div>"
-                        div += "</div>"
-                        ++i;
+                    switch (val.type) {
+                        case 0 :
+                            div += "<div class='subCommentContainer'>"
+                            div += "<div>" + val.nickname + "</div>"
+                            div += "<div>" + val.date + "</div>"
+                            div += "<div class='cautionContainer'>" +
+                                val.caution + "&nbsp<img src='../resource/warning.png' class='cautionImage' onclick='cationClicked(" + i + "," + commentCode[i] + ", " + cautionNum[i] + ")'/>" +
+                                "</div>"
+                            div += "<div>" + val.comment + "</div>"
+                            div += "</div>"
+                            ++i;
+                            break;
+
+                        case -1 :
+                            div += "<div class='subCommentContainer'>"
+                            div += "<div>" + val.nickname + "</div>"
+                            div += "<div>" + val.date + "</div>"
+                            div += "<div class='cautionDelete'>신고가 누적되어 삭제된 댓글 입니다.</div>"
+                            div += "</div>"
+                            ++i;
+                            break;
+
+                        case -2 :
+                            div += "<div class='subCommentContainer'>"
+                            div += "<div>" + val.nickname + "</div>"
+                            div += "<div>" + val.date + "</div>"
+                            div += "<div class='adminDelete'>관리자에 의해 삭제된 댓글 입니다.</div>"
+                            div += "</div>"
+                            ++i;
+                            break;
                     }
                 });
             }
@@ -181,9 +197,6 @@ function getBoardComment() {
     }); // end ajax
 }
 
-// 버튼 상태 저장 변수
-// let toggle = 0;
-
 // 신고 버튼이 클릭 될 때마다 호출되는 함수
 // 매개 변수로 몇번 댓글인지 구별하는 i와 댓글 기본키, 댓글의 경고 수가 들어옴
 function cationClicked(i, commentCode, caution) {
@@ -199,14 +212,15 @@ function cationClicked(i, commentCode, caution) {
             dataType: "json",
             cache: false,
             error: function () {
-                console.log('connection error..');
+                console.log("connection error ...");
             },
             // ajax 연결에 성공했다면
             success: function (response) {
+                console.log(response);
                 if (response['error']) {
-                    alert(response);
+                    alert(response['msg']);
                 } else {
-                    console.log(response);
+                    //console.log(response);
                     alert("댓글이 신고되었습니다.");
                     // 댓글 비동기 새로고침
                     getBoardComment();
@@ -220,14 +234,12 @@ function cationClicked(i, commentCode, caution) {
     }
 }
 
-
 // url 주소의 쿼리 스트링을 들고오기 위한 함수 
 function getUrlParams() {
     var params = {};
     window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(str, key, value) { params[key] = value; });
     return params;
 }
-
 
 // 댓글 쓰기 버튼이 눌리면 호출
 function showCommentForm() {
@@ -279,6 +291,7 @@ function commentFormSubmit() {
                 alert(response['msg']);
 
             } else {
+                alert("게시 완료!");
                 // console.log(response['result_data']);
             }
 
@@ -298,6 +311,5 @@ function enter() {
     // keyCode의 반환이 13이면 Enter키를 뜻함
     if ( window.event.keyCode === 13 ) {
         commentFormSubmit();
-        alert("게시 완료!");
     }
 }

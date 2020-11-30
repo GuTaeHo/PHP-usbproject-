@@ -15,6 +15,8 @@ h3 {
     text-align: center;
 }
 
+/* ----------------------- 사이드 박스 --------------------------- */
+
 /* 현재 접속자 id style 지정 */
 .current-id {
     width: 200px;
@@ -79,6 +81,13 @@ h3 {
     margin: 5%;
 }
 
+.helpFunctionTitle {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* ----------------------- 사이드 박스 --------------------------- */
+
 /* 회원 수정 컨테이너 */
 .memberContainer {
     margin: 6rem auto 6rem;
@@ -104,6 +113,20 @@ h3 {
     box-shadow: none;
 }
 
+input[type='button'] {
+    background: #f1f1f1;
+    border: none;
+    box-shadow: 3px 3px 4px #E4E4E4;
+    border-radius: 5px;
+    padding: 5px 10px;
+    transition: 200ms;
+}
+
+input[type='button']:hover {
+    background: #A4A4A4;
+    box-shadow: none;
+}
+
 .card-body h4{
     text-align: center;
 }
@@ -123,8 +146,20 @@ h3 {
     box-shadow: none;
 }
 
+/* 모달 label(텍스트) */
+.card-body label {
+    margin-top: 20px;
+}
+
+/* 모달 권한 버튼 컨테이너 */
 .permissionContainer {
-    margin: 20px;
+    margin-top: 20px;
+    padding: 0px 2rem;
+}
+
+/* 모달 권한 버튼*/
+.permissionContainer input[type="button"] {
+    width: 100%;
 }
 
 
@@ -146,17 +181,24 @@ h3 {
     box-shadow: 5px 5px 30px #bfbfbf;
 }
 
+/* 댓글 수정 작성 댓글 */
+.commentContents {
+    width: 50%;
+}
+
 tbody tr {
     background: white;
     transition: 200ms;
 }
 
+/* 모바일 기기 css 지정*/
+@media screen and (max-width: 768px) {
+    .current-id {
+        display: none;
+    }
 
-/* 게시판 레코드 호버시 배경 변경*/
-/*
-tbody tr:hover {
-    transform: scale(1.05, 1.05);
-    background: #f1f1f1;
-    border-radius: 20px;
+    .help {
+        display: none;
+    }
 }
-*/
+

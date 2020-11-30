@@ -19,6 +19,14 @@ $boardCode = $_POST['boardCode'];
 $commentCode = $_POST['commentCode'];
 $caution = $_POST['caution'];
 
+// 세션의 값을 들고옴
+if (empty($_SESSION["userCode"])) {
+    $result['error'] = true;
+    $result['msg'] = "로그인 후 이용해 주세요!!!";
+    echo json_encode($result);
+    exit;
+}
+
 // 경고 + 1
 $caution = $caution + 1;
 
@@ -38,11 +46,11 @@ if ($caution < 5 ) {
     // UPDATE TABLE SET caution = $caution WHERE c_code = $commentCode AND b_code = $boardCode;
 
 // 경고가 5회 이상일 때
-// type컬럼의 값을 -2(숨김)로 업데이트
+// type컬럼의 값을 -1(숨김)로 업데이트
 } else {
     $cautionData = array(
         'caution' => $caution,
-        'type' => -2,
+        'type' => -1,
         );
 
     $db->where('c_code', $commentCode);

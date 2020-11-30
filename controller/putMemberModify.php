@@ -46,6 +46,12 @@ $db->where('id', $id);
 if ($db->update('member',$data)) {
     $result['error'] = false;
     $result['msg'] = $data;
+    
+    // 수정된 회원 정보를 세션에 업데이트
+    $_SESSION['userNickname'] = $nickname;
+    $_SESSION["userName"] = $name;
+    $_SESSION["userEmail"] = $email;
+
 } else {
     $result['error'] = true;
     $result['msg'] = $data;

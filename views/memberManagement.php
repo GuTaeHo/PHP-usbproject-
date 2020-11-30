@@ -1,3 +1,4 @@
+
 <div class="container">
     <!-- 사이드 박스 -->
     <div class="current-id" onclick="idClick()">
@@ -11,12 +12,12 @@
         <div class="hiddenHelpText" style="display:none;">
             <div>manage 페이지는 게시판, 회원, 댓글을 DataBase에 접속하지 않고 <br>빠르게 정보를 수정하기 위한 페이지 입니다.</div>
             <br>
-            <div>주요 기능</div>
+            <div class="helpFunctionTitle">주요 기능</div>
             <div>회원의 사용자 권한 변경 및 삭제 기능</div>
-            <div> -2 (관리자 삭제), -1 (사용자 삭제), 0 (보임), 1 (비밀글)</div>
+            <div>-2 (삭제), 0 (보임), 1 (비밀글)</div>
             <br>
-            <div> - 게시글 삭제 기능</div>
-            <div> - 댓글 경고 및 삭제 기능</div>
+            <div>게시글 삭제 기능</div>
+            <div>댓글 삭제 기능</div>
         </div>
     </div>
 
@@ -64,6 +65,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-4 col-form-label">관리자 권한</label>
                                         <div class="col-sm-8 permissionContainer">
+                                            <!-- memberManagement.js에서 모달이 띄워졌을때 value 할당-->
                                             <input type="hidden" id="m_code" name="m_code" readonly/>
                                             <input type="button" name="overseer" class="btn btn-gradient-primary permissionButton" value="4" />
                                         </div>
