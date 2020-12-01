@@ -106,7 +106,6 @@ if ($fileSize > 0) {
     }
 
 //     파일 업로드
-//    $upload_directory = _DS_."wwwfile"._DS_."usbProject"._DS_."postboard";
     $upload_directory = "../resource/postboard/";
 
     // 해당 경로가 유효한지(존재 하는지) 검사
